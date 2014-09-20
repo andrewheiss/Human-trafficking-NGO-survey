@@ -6,3 +6,7 @@
 
 # Output
 *.pdf
+
+# Data
+Data/Human_Trafficking_NGOs_survey*
+Data/responses.RData
