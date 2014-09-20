@@ -1,0 +1,11 @@
+# OS X stuff
+.DS_Store
+
+# Sake stuff
+.shastore
+
+# Hide raw data for now
+Data/*
+
+# Output
+*.pdf
