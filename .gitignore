@@ -6,6 +6,7 @@
 
 # Hide raw data for now
 Data/*
+!Data/.gitignore
 
 # Output
 *.pdf
