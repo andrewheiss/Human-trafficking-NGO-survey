@@ -4,9 +4,18 @@
 # Sake stuff
 .shastore
 
+# R stuff
+.RData
+.Rhistory
+
 # Output
 *.pdf
 
 # Data
 Data/Human_Trafficking_NGOs_survey*
 Data/responses.RData
+
+# Packrat
+.Rproj.user
+packrat/lib*/
+packrat/src/
