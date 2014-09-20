@@ -1,7 +1,7 @@
 PackratFormat: 1.4
-PackratVersion: 0.4.0.5
+PackratVersion: 0.4.1.1
 RVersion: 3.1.1
-Repos: =http://cran.rstudio.com
+Repos: CRAN=http://cran.at.r-project.org/
 
 Package: assertthat
 Source: CRAN
@@ -10,8 +10,8 @@ Hash: 4b419cfdc33a3019a7f3c6f0cdea6c38
 
 Package: BH
 Source: CRAN
-Version: 1.54.0-3
-Hash: 74c05300b5f2faed25f80fd6ed7c66e0
+Version: 1.54.0-4
+Hash: 240790420ebcf7321eed885d421a8335
 
 Package: bitops
 Source: CRAN
@@ -74,8 +74,8 @@ Requires: digest, evaluate, formatR, highr, markdown, stringr
 
 Package: Lahman
 Source: CRAN
-Version: 2.0-3
-Hash: 45a202fe77d745af4b76d0683abf5963
+Version: 3.0-1
+Hash: 01ed6aeccc6eda186d88f2bb2cab37e6
 
 Package: lubridate
 Source: CRAN
@@ -106,13 +106,15 @@ Version: 0.1.2
 Hash: 08ae994b18677717b786ade9c113b6ea
 
 Package: packrat
-Source: github
-Version: 0.4.0.5
-Hash: 76abbefacf6fda8859f3bb3ac0ab63ca92384829
-GithubRepo: packrat
-GithubUsername: rstudio
-GithubRef: master
-GithubSha1: 76abbefacf6fda8859f3bb3ac0ab63ca92384829
+Source: CRAN
+Version: 0.4.1-1
+Hash: 5716097644904b9c1b4be2692de16005
+
+Package: pander
+Source: CRAN
+Version: 0.3.8
+Hash: b867a27efb0ed511ec115bc9c34547b8
+Requires: digest
 
 Package: plyr
 Source: CRAN
@@ -132,14 +134,10 @@ Hash: b210925e978fd52ad5eb0822a353e7ce
 Requires: plyr, Rcpp, stringr
 
 Package: rmarkdown
-Source: github
-Version: 0.2.68
-Hash: d2474565b72d39ed83b32d3c92a2bb02f8ed03a5
+Source: CRAN
+Version: 0.3.3
+Hash: fe7b370d7022b58c2b71469681c0431f
 Requires: caTools, htmltools, knitr, yaml
-GithubRepo: rmarkdown
-GithubUsername: rstudio
-GithubRef: v0.98.1000
-GithubSha1: d2474565b72d39ed83b32d3c92a2bb02f8ed03a5
 
 Package: stringr
 Source: CRAN

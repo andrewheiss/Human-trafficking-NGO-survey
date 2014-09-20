@@ -1,0 +1,24 @@
+---
+title: "Testing"
+author: "Andrew Heiss"
+date: "September 19, 2014"
+output: pdf_document
+---
+
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+# Set the working directory one level back
+library(knitr)
+opts_knit$set(root.dir = normalizePath('../'))
+
+library(pander)
+panderOptions('table.split.table', Inf)
+# panderOptions('knitr.auto.asis', FALSE)  # Someday
+
+# Process and clean all the data
+source("../clean_data.R", chdir=TRUE)
+```
+
+
+```{r, echo=FALSE, results='asis'}
+pander(summary(responses.org$work.only.us), caption="This is a test")
+```
