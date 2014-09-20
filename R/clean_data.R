@@ -32,14 +32,14 @@ fix.na <- function(x) {
 #------------
 # The phone and LinkedIn surveys need an empty Q67 added (the banner image) 
 # so that the three can be merged correctly
-raw.main <- load.qualtrics("Data/Human_Trafficking_NGOs_survey.csv")
+raw.main <- load.qualtrics("../Data/Human_Trafficking_NGOs_survey.csv")
 
-raw.phone <- load.qualtrics("Data/Human_Trafficking_NGOs_survey_inline_for_phone.csv") %>%
+raw.phone <- load.qualtrics("../Data/Human_Trafficking_NGOs_survey_inline_for_phone.csv") %>%
   mutate(Q67 = NA) 
 
 good.linkedin <- c("R_02iOgW9hAxLGdJr", "R_cVfWt7ooTCsCee9", "R_0oerAAwD33YRIPP", 
                    "R_6sdNfHkg9h8wKMZ", "R_8e8oOEOnHXOzxbv")
-raw.linkedin <- load.qualtrics("Data/Human_Trafficking_NGOs_survey_LinkedIn.csv") %>%
+raw.linkedin <- load.qualtrics("../Data/Human_Trafficking_NGOs_survey_LinkedIn.csv") %>%
   mutate(Q67 = NA) %>% filter(V1 %in% good.linkedin)
 
 
@@ -47,7 +47,7 @@ raw.linkedin <- load.qualtrics("Data/Human_Trafficking_NGOs_survey_LinkedIn.csv"
 # Clean data
 #-------------
 # Load country list
-countries <- read.csv("Data/countries.csv", header=TRUE)
+countries <- read.csv("../Data/countries.csv", header=TRUE)
 
 # These are separate for convenience, with columns for the primary key and
 # country name. In theory I could make just one `countries` data frame, but
@@ -176,4 +176,4 @@ responses.countries <- responses %>%
 #------------------
 # Save everything
 #------------------
-save.image(file="Data/responses.RData", compress="gzip")
+save.image(file="../Data/responses.RData", compress="gzip")
