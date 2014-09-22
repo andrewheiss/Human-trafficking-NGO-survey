@@ -24,6 +24,16 @@ Version: 1.17.1
 Hash: bb5fdc266f716b8a289a4f92007d53e3
 Requires: bitops
 
+Package: colorspace
+Source: CRAN
+Version: 1.2-4
+Hash: b775bd08a10f968fef582304b7c3ab9c
+
+Package: dichromat
+Source: CRAN
+Version: 2.0-0
+Hash: 42be2136555fa4b6167605df56d8cd7c
+
 Package: digest
 Source: CRAN
 Version: 0.6.4
@@ -45,10 +55,32 @@ Version: 0.5.5
 Hash: 20881970e590ee68de97a468694db7b0
 Requires: stringr
 
+Package: extrafont
+Source: CRAN
+Version: 0.16
+Hash: 976a9af4469920354d5ebc159a8ed2f1
+Requires: extrafontdb, Rttf2pt1
+
+Package: extrafontdb
+Source: CRAN
+Version: 1.0
+Hash: edff08634dbcd528f806055d86622c3a
+
 Package: formatR
 Source: CRAN
 Version: 1.0
 Hash: a90c211d7df7e61a72b8ab6c99c2e848
+
+Package: ggplot2
+Source: CRAN
+Version: 1.0.0
+Hash: c8bff66238347472f08b6a35608539ff
+Requires: digest, gtable, plyr, proto, reshape2, scales
+
+Package: gtable
+Source: CRAN
+Version: 0.1.2
+Hash: 0cf4a2b54c02b35dec7e74a8ebed12a0
 
 Package: hflights
 Source: CRAN
@@ -71,6 +103,11 @@ Source: CRAN
 Version: 1.6
 Hash: 0f6457facba94bccad17a7c67c2f4168
 Requires: digest, evaluate, formatR, highr, markdown, stringr
+
+Package: labeling
+Source: CRAN
+Version: 0.3
+Hash: 568a992912caf7eeddfb121924154047
 
 Package: Lahman
 Source: CRAN
@@ -105,6 +142,12 @@ Source: CRAN
 Version: 0.1.2
 Hash: 08ae994b18677717b786ade9c113b6ea
 
+Package: munsell
+Source: CRAN
+Version: 0.4.2
+Hash: fa8af6d040041439b249351e9d16ae9a
+Requires: colorspace
+
 Package: packrat
 Source: CRAN
 Version: 0.4.1-1
@@ -122,6 +165,16 @@ Version: 1.8.1
 Hash: be21bad411e628f810a92212e17b5be7
 Requires: Rcpp
 
+Package: proto
+Source: CRAN
+Version: 0.3-10
+Hash: 668a9e87cedbdc5f56c396edf1bd2648
+
+Package: RColorBrewer
+Source: CRAN
+Version: 1.0-5
+Hash: 6a849b729bec970204ca88b96906adbc
+
 Package: Rcpp
 Source: CRAN
 Version: 0.11.2
@@ -138,6 +191,17 @@ Source: CRAN
 Version: 0.3.3
 Hash: fe7b370d7022b58c2b71469681c0431f
 Requires: caTools, htmltools, knitr, yaml
+
+Package: Rttf2pt1
+Source: CRAN
+Version: 1.3.2
+Hash: b137e8b011ebd12d20e97a569d3b715f
+
+Package: scales
+Source: CRAN
+Version: 0.2.4
+Hash: b8b1af97bd07818605223060386b00dd
+Requires: dichromat, labeling, munsell, plyr, RColorBrewer
 
 Package: stringr
 Source: CRAN

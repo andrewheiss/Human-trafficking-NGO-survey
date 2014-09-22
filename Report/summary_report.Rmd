@@ -1,0 +1,188 @@
+---
+title: "Testing"
+author: "Andrew Heiss"
+mainfont: Clear Sans
+fontsize: 10pt
+output:
+  pdf_document:
+    includes:
+      in_header: ../TeX/top_stuff.tex
+    latex_engine: xelatex
+    toc: yes
+    toc_depth: 1
+---
+
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+# Set the working directory one level back
+library(knitr)
+opts_knit$set(root.dir = normalizePath('../'))
+
+library(pander)
+panderOptions('table.split.table', Inf)
+# panderOptions('knitr.auto.asis', FALSE)  # Someday
+
+# Process and clean all the data
+source("../R/clean_data.R", chdir=TRUE)
+
+# Load plotting helper functions
+source("../R/summary_functions.R", chdir=TRUE)
+
+```
+
+
+# Q1.2: What is the name of your organization?
+
+```{r, echo=FALSE, results='asis'}
+# if (metadata$hide.anonymous == TRUE) {
+#   org.names <- responses.org.foreign %>% filter(Q1.3 == "No") %>% select(name = Q1.2)
+# } else {
+  org.names <- responses.org.foreign %>% select(name = Q1.2)
+# }
+pandoc.list(text.list(org.names$name))
+```
+
+
+# Q1.3: Would you like your organization to remain anonymous in this study's reports?
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+# Q1.3: Would you like your organization to remain anonymous in this study's reports?
+plot.single.question(responses.org.foreign$Q1.3)
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(factor.summary(responses.org.foreign$Q1.3))
+```
+
+
+# Q1.4: Where is your organization's main office?
+
+
+# Q1.5: In how many countries has your organization done most of its advocacy work over the past 10 years?
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+plot.single.question(responses.org.foreign$Q1.5)
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(numeric.summary(responses.org.foreign$Q1.5))
+```
+
+
+# Q2.1: About what percent of your organization's time and resources are spent on fighting against trafficking or helping victims of trafficking?
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+ggplot(responses.org.foreign, aes(x=Q2.1/100)) + 
+  geom_histogram(binwidth=.1, fill=bar.color.single) + 
+  labs(x=NULL, y="Proportion") + scale_x_continuous(labels = percent) +
+  theme_bar
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(numeric.summary(responses.org.foreign$Q2.1))
+```
+
+
+# Q2.2: Which human trafficking issues is your organization most involved with?
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+cols <- c("Q2.2_1", "Q2.2_2", "Q2.2_3", "Q2.2_4")
+labels <- c("Organ trafficking", "Sex trafficking", 
+            "Labor trafficking", "Other")
+
+plot.multiple.answers(cols, labels)
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(separate.answers.summary(responses.org.foreign, cols, 
+                                      labels, n=num.responses, total=TRUE))
+```
+
+## Other responses
+
+```{r, echo=FALSE, results='asis'}
+pandoc.list(text.list(responses.org.foreign$Q2.2_4_TEXT))
+```
+
+
+# Q2.3: Which kinds of victims is your organization most involved with?
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+cols <- c("Q2.3_1", "Q2.3_2", "Q2.3_3")
+labels <- c("Children", "Adults", "Other")
+
+plot.multiple.answers(cols, labels)
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(separate.answers.summary(responses.org.foreign, cols, 
+                                      labels, n=num.responses, total=TRUE))
+```
+
+## Other responses
+
+```{r, echo=FALSE, results='asis'}
+pandoc.list(text.list(responses.org.foreign$Q2.3_3_TEXT))
+```
+
+
+# Q2.4: Which efforts does your organization focus on most?
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+cols <- c("Q2.4_1", "Q2.4_2", "Q2.4_3", "Q2.4_4", "Q2.4_5")
+labels <- c("Prevention and education", "Prosecutions and legal issues",
+            "Victim protection", "Victim assistance", "Other")
+
+plot.multiple.answers(cols, labels, flipped=TRUE)
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(separate.answers.summary(responses.org.foreign, cols, 
+                                      labels, n=num.responses, total=TRUE))
+```
+
+## Other responses
+
+```{r, echo=FALSE, results='asis'}
+pandoc.list(text.list(responses.org.foreign$Q2.4_5_TEXT))
+```
+
+
+# Q2.5: The US State Department issues an annual Trafficking in Persons (TIP) report. Have you ever heard of this annual report?
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+plot.single.question(responses.org.foreign$Q2.5)
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(factor.summary(responses.org.foreign$Q2.5))
+```
+
+
+# Q2.6: In Fall 2013 an NGO named WalkFree published a "Human Trafficking Index" that rated countries on how many trafficking victims they have. Have you heard of this index?
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+plot.single.question(responses.org.foreign$Q2.6)
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(factor.summary(responses.org.foreign$Q2.6))
+```
+
+
+
+# Q3.2: Where has your organization done advocacy work?
+
+
+# Q3.2a: Countries that have no reported advocacy work
+
+
+# Q3.3: How much does your organization know about human trafficking policy in X?
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+plot.single.question(responses.countries$Q3.3)
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(factor.summary(responses.countries$Q3.3))
+```
+
