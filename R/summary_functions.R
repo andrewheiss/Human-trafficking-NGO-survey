@@ -61,16 +61,11 @@ separate.answers.summary <- function(df, cols, labels, n=num.country.responses, 
 
 
 plot.single.question <- function(x) {
-#   # Get rid of missing values for column
-#   call <- substitute(select(df, x), list(x=as.name(x)))
-#   plot.data <- eval(call) %>% na.omit()
-#   
-#   # Make sure the variable is a factor
-#   if (class(plot.data[[1]]) != "factor") {
-#     plot.data[[1]] <- factor(plot.data[[1]])
-#   }
-#   
   plot.data <- data.frame(var.to.plot = x) %>% na.omit()
+  
+  if (class(plot.data$var.to.plot) != "factor") {
+    plot.data$var.to.plot <- factor(plot.data$var.to.plot)
+  }
   
   # Do this to pass unquoted variables: 
   # aes <- eval(substitute(aes(x), list(x = substitute(x))))
