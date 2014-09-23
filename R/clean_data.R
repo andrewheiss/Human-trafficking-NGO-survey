@@ -224,3 +224,8 @@ world.ggmap <- ggplot2::fortify(world.map, region = "ISO3")
 # Save everything
 #------------------
 save.image(file="../Data/responses.RData", compress="gzip")
+
+# Save CSV files
+write.csv(responses.org, "../Data/responses_orgs.csv", row.names=FALSE)
+write.csv(responses.org.foreign, "../Data/responses_orgs_foreign.csv", row.names=FALSE)
+write.csv(responses.countries, "../Data/responses_countries.csv", row.names=FALSE)
