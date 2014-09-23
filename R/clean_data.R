@@ -12,9 +12,10 @@ library(lubridate)
 #-------------------
 # Remove second line from Qualtrics CSV files since it contains 
 # the actual questions and we don't need those.
-# MAYBE: Clean any other problems with the text, like unescaped slashes
 load.qualtrics <- function(filename) {
   lines <- readLines(filename)
+  lines <- gsub("\\\\", "-", lines)  # Fix unescaped \s
+  
   ret <- read.csv(textConnection(lines[-2]),  # Remove 2nd line
                   header=TRUE, stringsAsFactors=FALSE, na.strings=c(""))
   return(ret)
