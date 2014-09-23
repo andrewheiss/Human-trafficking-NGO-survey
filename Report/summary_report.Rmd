@@ -1,5 +1,5 @@
 ---
-hide.anonymous: FALSE
+hide.anonymous: TRUE
 title: "Testing"
 author: "Andrew Heiss"
 date: "`r format(Sys.time(), '%B %e, %Y')`"
@@ -15,11 +15,6 @@ output:
 ---
 
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
-# Hide anonymous organization names
-# TODO: Use YAML metadata for this 
-# (bug at https://github.com/rstudio/rmarkdown/issues/260)
-hide.anonymous <- FALSE
-
 # Set the working directory one level back
 library(knitr)
 opts_knit$set(root.dir = normalizePath('../'))
@@ -48,9 +43,10 @@ source("../R/summary_functions.R", chdir=TRUE)
 
 # Q1.2: What is the name of your organization?
 
-```{r, echo=FALSE, results='asis'}
-if (hide.anonymous == TRUE) {
+```{r, echo=FALSE, results='asis', cache=FALSE}
+if (rmarkdown::metadata$hide.anonymous == TRUE) {
   org.names <- responses.org.foreign %>% filter(Q1.3 == "No") %>% select(name = Q1.2)
+  pandoc.p("*Organizations requesting anonymity have been omitted.*")
 } else {
   org.names <- responses.org.foreign %>% select(name = Q1.2)
 }
