@@ -99,9 +99,11 @@ pandoc.table(factor.summary(responses.org.foreign$Q1.5.factor))
 # Q2.1: About what percent of your organization's time and resources are spent on fighting against trafficking or helping victims of trafficking?
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
-ggplot(responses.org.foreign, aes(x=Q2.1/100)) + 
+ggplot(responses.org.foreign, aes(x=Q2.1/100, y=(..count.. / sum(..count..)))) + 
   geom_histogram(binwidth=.1, fill=bar.color.single) + 
-  labs(x=NULL, y="Proportion") + scale_x_continuous(labels = percent) +
+  labs(x="Proportion of time", y="Proportion of total") + 
+  scale_x_continuous(labels=percent, limits=c(0, 1), breaks=seq(0, 1, 0.2)) +
+  scale_y_continuous(labels=percent) + 
   theme_bar
 ```
 
