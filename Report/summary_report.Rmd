@@ -34,6 +34,12 @@ source("../R/clean_data.R", chdir=TRUE)
 # Load plotting helper functions
 source("../R/summary_functions.R", chdir=TRUE)
 
+# TODO: Consistent plot orientation
+# TODO: Better Unicode happy font
+# TODO: Embed fonts in plots
+# MAYBE: Multicolumnn table instead of list?
+
+
 ```
 
 
