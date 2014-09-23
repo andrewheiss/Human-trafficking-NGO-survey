@@ -101,7 +101,7 @@ pandoc.table(factor.summary(responses.org.foreign$Q1.5.factor))
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
 ggplot(responses.org.foreign, aes(x=Q2.1/100, y=(..count.. / sum(..count..)))) + 
   geom_histogram(binwidth=.1, fill=bar.color.single) + 
-  labs(x="Proportion of time", y="Proportion of total") + 
+  labs(x="Proportion of time", y="Proportion of responses") + 
   scale_x_continuous(labels=percent, limits=c(0, 1), breaks=seq(0, 1, 0.2)) +
   scale_y_continuous(labels=percent) + 
   theme_bar
