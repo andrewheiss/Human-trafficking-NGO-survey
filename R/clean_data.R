@@ -6,6 +6,15 @@ library(tidyr)
 library(dplyr)
 library(lubridate)
 
+# Map stuff
+# You must install geos (http://trac.osgeo.org/geos/) and 
+# gdal (http://www.gdal.org/) first. 
+# Easy to do on OS X: `brew install geos gdal`
+# Then install these packages from source
+# install.packages(c("rgeos", "rgdal"), type="source")
+library(rgeos)
+library(maptools)
+
 
 #-------------------
 # Helper functions
@@ -172,6 +181,39 @@ responses.countries <- responses %>%
          Q3.18_6 = as.numeric(Q3.18_6), Q3.21_1 = as.numeric(Q3.21_1),
          Q3.21_2 = as.numeric(Q3.21_2), Q3.21_3 = as.numeric(Q3.21_3),
          Q3.21_4 = as.numeric(Q3.21_4))
+
+
+#---------------------
+# Deal with map data
+#---------------------
+# Get frequency tables
+home.countries.freq <- responses.org %>% 
+  select(Q1.4, country=home.country) %>% 
+  group_by(country) %>% 
+  summarize(freq = n()) %>%
+  arrange(desc(freq))
+
+home.countries.plot <- countries %>%
+  left_join(home.countries.freq, by="country") %>%
+  select(id=ISO3, country, freq) %>%
+  mutate(freq_ceiling = ifelse(freq > 10, 10, freq)) %>%
+  arrange(desc(freq))
+
+work.countries.freq <- responses.countries %>% 
+  select(Q3.2, country=work.country) %>% 
+  group_by(country) %>% 
+  summarize(freq = n()) %>%
+  arrange(desc(freq))
+
+work.countries.plot <- countries %>%
+  left_join(work.countries.freq, by="country") %>%
+  select(id=ISO3, country, freq) %>%
+  mutate(freq_ceiling = ifelse(freq > 10, 10, freq)) %>%
+  arrange(desc(freq))
+
+# Load map information
+world.map <- readShapeSpatial("../Data/maps/TM_WORLD_BORDERS_SIMPL-0.3.shp")
+world.ggmap <- ggplot2::fortify(world.map, region = "ISO3")
 
 
 #------------------

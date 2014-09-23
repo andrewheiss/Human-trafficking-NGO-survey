@@ -71,6 +71,13 @@ Source: CRAN
 Version: 1.0
 Hash: a90c211d7df7e61a72b8ab6c99c2e848
 
+Package: ggmap
+Source: CRAN
+Version: 2.3
+Hash: de98e41d089a704b5c03da03a806f2fb
+Requires: ggplot2, mapproj, plyr, png, proto, reshape2, RgoogleMaps,
+    rjson, scales
+
 Package: ggplot2
 Source: CRAN
 Version: 1.0.0
@@ -135,6 +142,23 @@ Source: CRAN
 Version: 1.0.1
 Hash: 576e5bf21e3801499cebc27af6ad1627
 
+Package: mapproj
+Source: CRAN
+Version: 1.2-2
+Hash: 26b74cac98f12af52703765791824ea2
+Requires: maps
+
+Package: maps
+Source: CRAN
+Version: 2.3-9
+Hash: 236a24fa187bb1f3a1694f2915597c5e
+
+Package: maptools
+Source: CRAN
+Version: 0.8-30
+Hash: 103c8ad3262b5bc7280d620ed8302328
+Requires: sp
+
 Package: markdown
 Source: CRAN
 Version: 0.7.4
@@ -175,6 +199,11 @@ Version: 1.8.1
 Hash: be21bad411e628f810a92212e17b5be7
 Requires: Rcpp
 
+Package: png
+Source: CRAN
+Version: 0.1-7
+Hash: 7559dcd0a9f188351986d0494ec1516d
+
 Package: proto
 Source: CRAN
 Version: 0.3-10
@@ -196,10 +225,33 @@ Version: 1.4
 Hash: b210925e978fd52ad5eb0822a353e7ce
 Requires: plyr, Rcpp, stringr
 
+Package: rgdal
+Source: CRAN
+Version: 0.9-1
+Hash: bcdc532e25febc0f95960a7a9fce4048
+Requires: sp
+
+Package: rgeos
+Source: CRAN
+Version: 0.3-8
+Hash: ab575b135d32a389ff23c6d364a5bae0
+Requires: sp
+
 Package: rgl
 Source: CRAN
 Version: 0.93.1098
 Hash: 3aaa8dbaf7183d1779b5b963d0e4b0ce
+
+Package: RgoogleMaps
+Source: CRAN
+Version: 1.2.0.6
+Hash: 94d5dca13d4b4b6b7e747f1ac735f77b
+Requires: png, RJSONIO
+
+Package: rjson
+Source: CRAN
+Version: 0.2.14
+Hash: 6dfb12a8996f481bf8000d885b76db2e
 
 Package: RJSONIO
 Source: CRAN
@@ -232,6 +284,11 @@ Source: CRAN
 Version: 0.10.1
 Hash: abf0d95fb716352103ee6d35b51fffa4
 Requires: caTools, digest, htmltools, httpuv, RJSONIO, xtable
+
+Package: sp
+Source: CRAN
+Version: 1.0-15
+Hash: ccab055c2835c81a8add23517d8b6219
 
 Package: stringr
 Source: CRAN

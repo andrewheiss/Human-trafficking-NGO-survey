@@ -80,6 +80,22 @@ separate.answers.summary <- function(df, cols, labels, n=num.country.responses, 
 #-----------------
 # Plot functions
 #-----------------
+# Custom themes
+theme_bar <- theme_bw(9) + 
+  theme(panel.grid.major.x=element_blank())#,
+        #text=element_text(family="Clear Sans"))
+
+theme_blank_map <- theme(panel.background = element_rect(fill="white"),
+                         panel.grid.major = element_blank(),
+                         panel.grid.minor = element_blank(),
+                         axis.line=element_blank(),
+                         axis.text.x=element_blank(),
+                         axis.text.y=element_blank(),
+                         axis.ticks=element_blank(),
+                         axis.title.x=element_blank(),
+                         axis.title.y=element_blank())#,
+                         #text=element_text(size=9, family="Clear Sans"))
+
 # Plot the summary of a factor
 plot.single.question <- function(x) {
   plot.data <- data.frame(var.to.plot = x) %>% na.omit()
