@@ -94,6 +94,8 @@ responses.org <- responses %>%
   rename(survey.id = V1, ip.address = V6, 
          start.time = V8, end.time = V9, finished = V10,
          Q2.1 = Q2.1_1) %>%
+  # Replace Andorra with Taiwan
+  mutate(Q1.4 = ifelse(Q1.4 == 4, 200, Q1.4)) %>%
   left_join(countries.home, by="Q1.4") %>%  # Join country names
   
   # Clean variables
@@ -105,7 +107,6 @@ responses.org <- responses %>%
          Q4.3 = factor(Q4.3, labels=c("No", "Yes"))) %>%
   mutate(start.time = ymd_hms(start.time),
          end.time = ymd_hms(end.time))
-
 
 # Filter organizations that only work in the US
 responses.org.foreign <- responses.org %>% filter(work.only.us == FALSE)
@@ -131,6 +132,8 @@ responses.countries <- responses %>%
   
   # Join country names
   mutate(Q3.2 = as.numeric(Q3.2)) %>% filter(Q3.2 != 187) %>%
+  # Replace Andorra with Taiwan
+  mutate(Q3.2 = ifelse(Q3.2 == 4, 200, Q3.2)) %>%
   left_join(countries.work, by="Q3.2") %>%
   
   # Create factors for scale questions
