@@ -3,7 +3,7 @@ hide.anonymous: FALSE
 title: "Testing"
 author: "Andrew Heiss"
 date: "`r format(Sys.time(), '%B %e, %Y')`"
-mainfont: Clear Sans
+mainfont: DejaVu Sans
 fontsize: 10pt
 output:
   pdf_document:
@@ -36,10 +36,10 @@ source("../R/clean_data.R", chdir=TRUE)
 source("../R/summary_functions.R", chdir=TRUE)
 
 # TODO: Consistent plot orientation
-# TODO: Better Unicode happy font
+# MAYBE: Find a font that covers Khmer too (not even Arial Unicode MS does, apparently)
 # TODO: Embed fonts in plots
 # MAYBE: Multicolumnn table instead of list?
-
+# TODO: Check that all "other" text answers are reported
 
 ```
 
