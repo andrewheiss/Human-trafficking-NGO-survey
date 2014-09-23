@@ -45,7 +45,7 @@ factor.summary <- function(x, sort_me=FALSE, total=TRUE) {
 
 separate.answers.summary <- function(df, cols, labels, n=num.country.responses, total=FALSE) {
   cols.to.select <- which(colnames(df) %in% cols)
-  df <- responses.org.foreign %>%
+  df <- df %>%
     select(survey.id, cols.to.select) %>%
     gather(question, value, -survey.id) %>%
     mutate(question = factor(question, labels=labels, ordered=TRUE)) %>%
@@ -76,9 +76,8 @@ plot.single.question <- function(x) {
 }
 
 
-plot.multiple.answers <- function(cols, labels, flipped=FALSE) {
-  plot.data <- separate.answers.summary(responses.org.foreign, cols, 
-                                        labels, n=num.responses)
+plot.multiple.answers <- function(df, cols, labels, flipped=FALSE) {
+  plot.data <- separate.answers.summary(df, cols, labels, n=num.responses)
   
   option.flip <- NULL
   
