@@ -98,11 +98,21 @@ Version: 0.2.6
 Hash: 2c87108d130de261ac3c468d3316ae42
 Requires: digest
 
-Package: knitr
+Package: httpuv
 Source: CRAN
-Version: 1.6
-Hash: 0f6457facba94bccad17a7c67c2f4168
+Version: 1.3.0
+Hash: 7244bf7093e9c6c1ab23ddab020f197f
+Requires: Rcpp
+
+Package: knitr
+Source: github
+Version: 1.6.18
+Hash: d0c51d7a580268b284c6044cd0737a0154f1c3ec
 Requires: digest, evaluate, formatR, highr, markdown, stringr
+GithubRepo: knitr
+GithubUsername: yihui
+GithubRef: master
+GithubSha1: d0c51d7a580268b284c6044cd0737a0154f1c3ec
 
 Package: labeling
 Source: CRAN
@@ -186,11 +196,25 @@ Version: 1.4
 Hash: b210925e978fd52ad5eb0822a353e7ce
 Requires: plyr, Rcpp, stringr
 
-Package: rmarkdown
+Package: rgl
 Source: CRAN
+Version: 0.93.1098
+Hash: 3aaa8dbaf7183d1779b5b963d0e4b0ce
+
+Package: RJSONIO
+Source: CRAN
+Version: 1.3-0
+Hash: 8b1341dfd547c90ed4b3365d5aa46a7b
+
+Package: rmarkdown
+Source: github
 Version: 0.3.3
-Hash: fe7b370d7022b58c2b71469681c0431f
+Hash: fd8dafdea0b4cc68b9dc3da0557a506e60e77ee2
 Requires: caTools, htmltools, knitr, yaml
+GithubRepo: rmarkdown
+GithubUsername: rstudio
+GithubRef: master
+GithubSha1: fd8dafdea0b4cc68b9dc3da0557a506e60e77ee2
 
 Package: Rttf2pt1
 Source: CRAN
@@ -203,16 +227,43 @@ Version: 0.2.4
 Hash: b8b1af97bd07818605223060386b00dd
 Requires: dichromat, labeling, munsell, plyr, RColorBrewer
 
+Package: shiny
+Source: CRAN
+Version: 0.10.1
+Hash: abf0d95fb716352103ee6d35b51fffa4
+Requires: caTools, digest, htmltools, httpuv, RJSONIO, xtable
+
 Package: stringr
 Source: CRAN
 Version: 0.6.2
 Hash: cdde0cfa0f52cffeaca23a11a3899779
+
+Package: testit
+Source: CRAN
+Version: 0.3
+Hash: bed1a0d361d2efefbe445aac2774b256
+
+Package: testthat
+Source: CRAN
+Version: 0.8.1
+Hash: f296283e62e2ff299efa01e26cfc3eb1
+Requires: digest
 
 Package: tidyr
 Source: CRAN
 Version: 0.1
 Hash: 670914c4cc556ce437637448b4b3e8b0
 Requires: dplyr, reshape2
+
+Package: XML
+Source: CRAN
+Version: 3.98-1.1
+Hash: 13746d37588e7083349177d6e8234864
+
+Package: xtable
+Source: CRAN
+Version: 1.7-4
+Hash: 7b30b5ca6c7ae80c4f916502e3ad0237
 
 Package: yaml
 Source: CRAN
