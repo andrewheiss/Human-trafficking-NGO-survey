@@ -23,7 +23,7 @@ output:
 # Set the working directory one level back
 library(knitr)
 opts_knit$set(root.dir = normalizePath('../'))
-opts_chunk$set(cache=TRUE)
+opts_chunk$set(cache=FALSE)
 
 library(pander)
 panderOptions('table.split.table', Inf)
