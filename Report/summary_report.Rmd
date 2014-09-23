@@ -89,11 +89,11 @@ pandoc.table(factor.summary(responses.org.foreign$home.country, sort.me=TRUE))
 # Q1.5: In how many countries has your organization done most of its advocacy work over the past 10 years?
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
-plot.single.question(responses.org.foreign$Q1.5)
+plot.single.question(responses.org.foreign$Q1.5.factor)
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(numeric.summary(responses.org.foreign$Q1.5))
+pandoc.table(factor.summary(responses.org.foreign$Q1.5.factor))
 ```
 
 

@@ -98,6 +98,7 @@ responses.org <- responses %>%
   
   # Clean variables
   mutate(Q1.3 = factor(Q1.3, labels=c("No", "Yes")),
+         Q1.5.factor = factor(Q1.5, labels=c("1", "2", "3", "4", "5+")),
          Q2.5 = factor(Q2.5, labels=c("No", "Yes")),
          Q2.6 = factor(Q2.6, labels=c("No", "Yes")),
          Q4.2 = factor(Q4.2, labels=c("No", "Yes")),

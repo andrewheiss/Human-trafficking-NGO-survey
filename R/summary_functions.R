@@ -104,12 +104,6 @@ theme_blank_map <- theme(panel.background = element_rect(fill="white"),
 plot.single.question <- function(x) {
   plot.data <- data.frame(var.to.plot = x) %>% na.omit()
   
-  # TODO: This gives a warning:
-  #  In if (class(plot.data$var.to.plot) != "factor") { :
-  #    the condition has length > 1 and only the first element will be used
-  if (class(plot.data$var.to.plot) != "factor") {
-    plot.data$var.to.plot <- factor(plot.data$var.to.plot)
-  }
   
   # Do this to pass unquoted variables: 
   # aes <- eval(substitute(aes(x), list(x = substitute(x))))
