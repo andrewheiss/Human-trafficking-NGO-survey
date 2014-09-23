@@ -15,6 +15,11 @@ output:
 ---
 
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+# Hide anonymous organization names
+# TODO: Use YAML metadata for this 
+# (bug at https://github.com/rstudio/rmarkdown/issues/260)
+hide.anonymous <- FALSE
+
 # Set the working directory one level back
 library(knitr)
 opts_knit$set(root.dir = normalizePath('../'))
@@ -35,11 +40,11 @@ source("../R/summary_functions.R", chdir=TRUE)
 # Q1.2: What is the name of your organization?
 
 ```{r, echo=FALSE, results='asis'}
-# if (metadata$hide.anonymous == TRUE) {
-#   org.names <- responses.org.foreign %>% filter(Q1.3 == "No") %>% select(name = Q1.2)
-# } else {
+if (hide.anonymous == TRUE) {
+  org.names <- responses.org.foreign %>% filter(Q1.3 == "No") %>% select(name = Q1.2)
+} else {
   org.names <- responses.org.foreign %>% select(name = Q1.2)
-# }
+}
 pandoc.list(clean.text(org.names$name))
 ```
 
