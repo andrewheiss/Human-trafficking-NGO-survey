@@ -101,20 +101,30 @@ theme_blank_map <- theme(panel.background = element_rect(fill="white"),
                          #text=element_text(size=9, family="Clear Sans"))
 
 # Plot the summary of a factor
-plot.single.question <- function(x) {
+plot.single.question <- function(x, flipped=TRUE) {
   plot.data <- data.frame(var.to.plot = x) %>% na.omit()
   
+  option.flip <- NULL
   
+  if (flipped) {
+    labels <- 
+    plot.data <- plot.data %>% 
+      mutate(var.to.plot = factor(var.to.plot, 
+                                  levels=rev(levels(plot.data$var.to.plot)), 
+                                  ordered=TRUE))
+    option.flip <- coord_flip()
+  }
+    
   # Do this to pass unquoted variables: 
   # aes <- eval(substitute(aes(x), list(x = substitute(x))))
   ggplot(plot.data, aes(x = var.to.plot)) + 
     geom_bar(aes(y=(..count..)/sum(..count..)), fill=bar.color.single) + 
-    labs(x=NULL, y="Proportion") + scale_y_continuous(labels = percent) + 
-    theme_bar
+    labs(x=NULL, y=NULL) + scale_y_continuous(labels = percent) + 
+    theme_bar + option.flip
 }
 
 # Plot the summary of a multiple-response question
-plot.multiple.answers <- function(df, cols, labels, flipped=FALSE) {
+plot.multiple.answers <- function(df, cols, labels, flipped=TRUE) {
   plot.data <- separate.answers.summary(df, cols, labels, n=num.responses)
   
   option.flip <- NULL
@@ -127,7 +137,7 @@ plot.multiple.answers <- function(df, cols, labels, flipped=FALSE) {
   
   p <- ggplot(plot.data, aes(x=Answer, y=Responses)) + 
     geom_bar(aes(y=Responses / num.responses), stat="identity", fill=bar.color.single) + 
-    labs(x=NULL, y="Proportion") + scale_y_continuous(labels = percent) + 
+    labs(x=NULL, y=NULL) + scale_y_continuous(labels = percent) + 
     theme_bar + option.flip
   p
 }

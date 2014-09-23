@@ -35,7 +35,6 @@ source("../R/clean_data.R", chdir=TRUE)
 # Load plotting helper functions
 source("../R/summary_functions.R", chdir=TRUE)
 
-# TODO: Consistent plot orientation
 # MAYBE: Find a font that covers Khmer too (not even Arial Unicode MS does, apparently)
 # TODO: Embed fonts in plots
 # MAYBE: Multicolumnn table instead of list?
@@ -161,7 +160,7 @@ cols <- c("Q2.4_1", "Q2.4_2", "Q2.4_3", "Q2.4_4", "Q2.4_5")
 labels <- c("Prevention and education", "Prosecutions and legal issues",
             "Victim protection", "Victim assistance", "Other")
 
-plot.multiple.answers(responses.org.foreign, cols, labels, flipped=TRUE)
+plot.multiple.answers(responses.org.foreign, cols, labels)
 ```
 
 ```{r, echo=FALSE, results='asis'}
@@ -258,7 +257,7 @@ cols <- c("Q3.5_1", "Q3.5_2", "Q3.5_3", "Q3.5_4", "Q3.5_5")
 labels <- c("The national government", "NGOs and civil society",
             "Embassies or foreign governments", "International organizations", "Other")
 
-plot.multiple.answers(responses.countries, cols, labels, flipped=TRUE)
+plot.multiple.answers(responses.countries, cols, labels)
 ```
 
 ```{r, echo=FALSE, results='asis'}
@@ -309,7 +308,7 @@ labels <- c("Asking for legislation", "Convening conferences or workshops",
             "Contributing to a government action plan", "Other", "Don't know",
             "The US has not been involved in trafficking issues")
 
-plot.multiple.answers(responses.countries, cols, labels, flipped=TRUE)
+plot.multiple.answers(responses.countries, cols, labels)
 ```
 
 ```{r, echo=FALSE, results='asis'}
@@ -382,7 +381,7 @@ labels <- c("Direct contact (meetings)", "Direct cooperation",
             "Our organization received funding", "Other", 
             "We have not had any contact or funding from the US", "Don't know")
 
-plot.multiple.answers(responses.countries, cols, labels, flipped=TRUE)
+plot.multiple.answers(responses.countries, cols, labels)
 ```
 
 ```{r, echo=FALSE, results='asis'}
@@ -425,7 +424,7 @@ pandoc.table(factor.summary(responses.countries$Q3.20))
 cols <- c("Q3.21_1", "Q3.21_2", "Q3.21_3", "Q3.21_4")
 labels <- c("Government of X", "Another government", "Other NGOs", "Other")
 
-plot.multiple.answers(responses.countries, cols, labels, flipped=TRUE)
+plot.multiple.answers(responses.countries, cols, labels)
 ```
 
 ```{r, echo=FALSE, results='asis'}
