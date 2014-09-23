@@ -1,7 +1,12 @@
 ---
-hide.anonymous: TRUE
-title: "Testing"
-author: "Andrew Heiss"
+hide.anonymous: FALSE
+title: |
+  | Human Trafficking Survey Results Report
+  | • • •
+  | Anonymous organizations unredacted
+  | US-only organizations removed
+  | • • •
+author: "Judith Kelley"
 date: "`r format(Sys.time(), '%B %e, %Y')`"
 mainfont: DejaVu Sans
 fontsize: 10pt
