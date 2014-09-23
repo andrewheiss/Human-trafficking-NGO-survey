@@ -1,6 +1,8 @@
 ---
+hide.anonymous: FALSE
 title: "Testing"
 author: "Andrew Heiss"
+date: "`r format(Sys.time(), '%B %e, %Y')`"
 mainfont: Clear Sans
 fontsize: 10pt
 output:
@@ -38,7 +40,7 @@ source("../R/summary_functions.R", chdir=TRUE)
 # } else {
   org.names <- responses.org.foreign %>% select(name = Q1.2)
 # }
-pandoc.list(text.list(org.names$name))
+pandoc.list(clean.text(org.names$name))
 ```
 
 
@@ -89,7 +91,7 @@ cols <- c("Q2.2_1", "Q2.2_2", "Q2.2_3", "Q2.2_4")
 labels <- c("Organ trafficking", "Sex trafficking", 
             "Labor trafficking", "Other")
 
-plot.multiple.answers(cols, labels)
+plot.multiple.answers(responses.org.foreign, cols, labels)
 ```
 
 ```{r, echo=FALSE, results='asis'}
@@ -100,7 +102,7 @@ pandoc.table(separate.answers.summary(responses.org.foreign, cols,
 ## Other responses
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.list(text.list(responses.org.foreign$Q2.2_4_TEXT))
+pandoc.list(clean.text(responses.org.foreign$Q2.2_4_TEXT))
 ```
 
 
@@ -110,7 +112,7 @@ pandoc.list(text.list(responses.org.foreign$Q2.2_4_TEXT))
 cols <- c("Q2.3_1", "Q2.3_2", "Q2.3_3")
 labels <- c("Children", "Adults", "Other")
 
-plot.multiple.answers(cols, labels)
+plot.multiple.answers(responses.org.foreign, cols, labels)
 ```
 
 ```{r, echo=FALSE, results='asis'}
@@ -121,7 +123,7 @@ pandoc.table(separate.answers.summary(responses.org.foreign, cols,
 ## Other responses
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.list(text.list(responses.org.foreign$Q2.3_3_TEXT))
+pandoc.list(clean.text(responses.org.foreign$Q2.3_3_TEXT))
 ```
 
 
@@ -132,7 +134,7 @@ cols <- c("Q2.4_1", "Q2.4_2", "Q2.4_3", "Q2.4_4", "Q2.4_5")
 labels <- c("Prevention and education", "Prosecutions and legal issues",
             "Victim protection", "Victim assistance", "Other")
 
-plot.multiple.answers(cols, labels, flipped=TRUE)
+plot.multiple.answers(responses.org.foreign, cols, labels, flipped=TRUE)
 ```
 
 ```{r, echo=FALSE, results='asis'}
@@ -143,7 +145,7 @@ pandoc.table(separate.answers.summary(responses.org.foreign, cols,
 ## Other responses
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.list(text.list(responses.org.foreign$Q2.4_5_TEXT))
+pandoc.list(clean.text(responses.org.foreign$Q2.4_5_TEXT))
 ```
 
 
@@ -186,3 +188,300 @@ plot.single.question(responses.countries$Q3.3)
 pandoc.table(factor.summary(responses.countries$Q3.3))
 ```
 
+
+# Q3.4: How often does your organization work directly with the government of X?
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+plot.single.question(responses.countries$Q3.4)
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(factor.summary(responses.countries$Q3.4))
+```
+
+
+# Q3.5: In X, which of these institutions have been active in fighting human trafficking over the last 10–15 years?
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+cols <- c("Q3.5_1", "Q3.5_2", "Q3.5_3", "Q3.5_4", "Q3.5_5")
+labels <- c("The national government", "NGOs and civil society",
+            "Embassies or foreign governments", "International organizations", "Other")
+
+plot.multiple.answers(responses.countries, cols, labels, flipped=TRUE)
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(separate.answers.summary(responses.countries, cols, 
+                                      labels, n=num.country.responses, total=TRUE))
+```
+
+## Other responses
+
+```{r, echo=FALSE, results='asis'}
+pandoc.list(clean.text(responses.countries$Q3.5_5_TEXT))
+```
+
+
+# Q3.6: Which embassies or foreign governments have been active in fighting human trafficking in X?
+
+```{r, echo=FALSE, results='asis'}
+pandoc.list(clean.text(responses.countries$Q3.6))
+```
+
+
+# Q3.7: Which of these embassies or foreign governments have been the most active?
+
+```{r, echo=FALSE, results='asis'}
+pandoc.list(clean.text(responses.countries$Q3.7))
+```
+
+
+# Q3.8: Over the last 10–15 years, has the United States or its embassy been active in the fight against human trafficking in X?
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+plot.single.question(responses.countries$Q3.8)
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(factor.summary(responses.countries$Q3.8))
+```
+
+
+# Q3.9: Has the United States or its embassy been involved in any of the following activities in X?
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+cols <- c("Q3.9_1", "Q3.9_2", "Q3.9_3", "Q3.9_4", "Q3.9_5",
+          "Q3.9_6", "Q3.9_7", "Q3.9_8", "Q3.9_9", "Q3.9_10")
+labels <- c("Asking for legislation", "Convening conferences or workshops",
+            "Raising awareness", "Providing resources or funding",
+            "Increasing government attention", "Training government officials",
+            "Contributing to a government action plan", "Other", "Don't know",
+            "The US has not been involved in trafficking issues")
+
+plot.multiple.answers(responses.countries, cols, labels, flipped=TRUE)
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(separate.answers.summary(responses.countries, cols, 
+                                      labels, n=num.country.responses, total=TRUE))
+```
+
+
+# Q3.10: Please explain how the United States asked the government to pass or amend anti-trafficking laws in X:
+
+```{r, echo=FALSE, results='asis'}
+pandoc.list(clean.text(responses.countries$Q3.10))
+```
+
+
+# Q3.11: Please explain how the United States convened conferences or workshops on trafficking in X:
+
+```{r, echo=FALSE, results='asis'}
+pandoc.list(clean.text(responses.countries$Q3.11))
+```
+
+
+# Q3.12: Please explain how the United States raised awareness about trafficking in X:
+
+```{r, echo=FALSE, results='asis'}
+pandoc.list(clean.text(responses.countries$Q3.12))
+```
+
+
+# Q3.13: Please explain how the United States provided resources or funding for anti-trafficking programs in X:
+
+```{r, echo=FALSE, results='asis'}
+pandoc.list(clean.text(responses.countries$Q3.13))
+```
+
+
+# Q3.14: Please explain how the United States increased government attention to trafficking in X:
+
+```{r, echo=FALSE, results='asis'}
+pandoc.list(clean.text(responses.countries$Q3.14))
+```
+
+
+# Q3.15: Please explain how the United States increased government attention to trafficking in X:
+
+```{r, echo=FALSE, results='asis'}
+pandoc.list(clean.text(responses.countries$Q3.15))
+```
+
+
+# Q3.16: Please explain how the United States contributed to a government action plan in X:
+
+```{r, echo=FALSE, results='asis'}
+pandoc.list(clean.text(responses.countries$Q3.16))
+```
+
+
+# Q3.17: Please explain how else the US government has been involved in trafficking issues in X:
+
+```{r, echo=FALSE, results='asis'}
+pandoc.list(clean.text(responses.countries$Q3.17))
+```
+
+
+# Q3.18: Over the last 10–15 years, has your organization worked directly with or had direct contact with the US embassy or government on human trafficking issues?
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+cols <- c("Q3.18_1", "Q3.18_2", "Q3.18_3", "Q3.18_4", "Q3.18_5", "Q3.18_6")
+labels <- c("Direct contact (meetings)", "Direct cooperation", 
+            "Our organization received funding", "Other", 
+            "We have not had any contact or funding from the US", "Don't know")
+
+plot.multiple.answers(responses.countries, cols, labels, flipped=TRUE)
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(separate.answers.summary(responses.countries, cols, 
+                                      labels, n=num.country.responses, total=TRUE))
+```
+
+## Other responses
+
+```{r, echo=FALSE, results='asis'}
+pandoc.list(clean.text(responses.countries$Q3.18_4_TEXT))
+```
+
+
+# Q3.19: Overall, how important a role would you say that the United States or its embassy have played in fighting trafficking in X over the last 10–15 years?
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+plot.single.question(responses.countries$Q3.19)
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(factor.summary(responses.countries$Q3.19))
+```
+
+
+# Q3.20: In your view, how hard is the government of X working to combat trafficking in persons?
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+plot.single.question(responses.countries$Q3.20)
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(factor.summary(responses.countries$Q3.20))
+```
+
+
+# Q3.21: Has your organization used the US State Department's Trafficking in Persons (TIP) report to discuss trafficking issues with any of these groups?
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+cols <- c("Q3.21_1", "Q3.21_2", "Q3.21_3", "Q3.21_4")
+labels <- c("Government of X", "Another government", "Other NGOs", "Other")
+
+plot.multiple.answers(responses.countries, cols, labels, flipped=TRUE)
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(separate.answers.summary(responses.countries, cols, 
+                                      labels, n=num.country.responses, total=TRUE))
+```
+
+## Other responses
+
+```{r, echo=FALSE, results='asis'}
+pandoc.list(clean.text(responses.countries$Q3.21_4_TEXT))
+```
+
+
+# Q3.22: Which TIP tier rating did X receive this year?
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+plot.single.question(responses.countries$Q3.22)
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(factor.summary(responses.countries$Q3.22))
+```
+
+
+# Q3.23: Have you ever heard—in public or private—officials in X mention the TIP tier rating?
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+plot.single.question(responses.countries$Q3.23)
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(factor.summary(responses.countries$Q3.23))
+```
+
+
+# Q3.24: What was their reason for mentioning it?
+
+```{r, echo=FALSE, results='asis'}
+pandoc.list(clean.text(responses.countries$Q3.24))
+```
+
+
+# Q3.25: Overall, has the US influence on human trafficking policy in X been positive or negative?
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+plot.single.question(responses.countries$Q3.25)
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(factor.summary(responses.countries$Q3.25))
+```
+
+
+# Q3.26: Would you say that the government of X's efforts to combat trafficking over the past 10–15 years have:
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+plot.single.question(responses.countries$Q3.26)
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(factor.summary(responses.countries$Q3.26))
+```
+
+
+# Q3.27: Does a member of the government or ruling party of X sit on your board?
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+plot.single.question(responses.countries$Q3.27)
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(factor.summary(responses.countries$Q3.27))
+```
+
+
+# Q3.28: Is your organization required by law to have a member of the government or ruling party sit on your board?
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+plot.single.question(responses.countries$Q3.28)
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(factor.summary(responses.countries$Q3.28))
+```
+
+
+# Q3.29: How much is your organization's work restricted by government regulations in X?
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+plot.single.question(responses.countries$Q3.29)
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(factor.summary(responses.countries$Q3.29))
+```
+
+
+# Q3.30: How is your organization's work restricted by government regulations in X?
+
+```{r, echo=FALSE, results='asis'}
+pandoc.list(clean.text(responses.countries$Q3.30))
+```
+
+
+# Q4.1: Do you have any additional comments?
+
+```{r, echo=FALSE, results='asis'}
+pandoc.list(clean.text(responses.org.foreign$Q4.1))
+```
