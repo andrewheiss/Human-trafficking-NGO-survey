@@ -8,6 +8,8 @@
 .Rhistory
 # Output
 *.pdf
+*_cache/
+*_files/
 # Data
 Data/Human_Trafficking_NGOs_survey*
 Data/responses.RData

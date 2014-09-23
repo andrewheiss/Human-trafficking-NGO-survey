@@ -14,7 +14,7 @@ output:
     toc_depth: 1
 ---
 
-```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
 # Hide anonymous organization names
 # TODO: Use YAML metadata for this 
 # (bug at https://github.com/rstudio/rmarkdown/issues/260)
@@ -23,6 +23,7 @@ hide.anonymous <- FALSE
 # Set the working directory one level back
 library(knitr)
 opts_knit$set(root.dir = normalizePath('../'))
+opts_chunk$set(cache=TRUE)
 
 library(pander)
 panderOptions('table.split.table', Inf)
