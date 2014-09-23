@@ -52,7 +52,6 @@ pandoc.list(clean.text(org.names$name))
 # Q1.3: Would you like your organization to remain anonymous in this study's reports?
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
-# Q1.3: Would you like your organization to remain anonymous in this study's reports?
 plot.single.question(responses.org.foreign$Q1.3)
 ```
 
