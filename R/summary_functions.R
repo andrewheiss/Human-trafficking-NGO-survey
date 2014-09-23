@@ -15,7 +15,7 @@ theme_bar <- theme_bw(9) +
   theme(panel.grid.major.x=element_blank())#, 
 #         text=element_text(family="Clear Sans"))
 
-text.list <- function(x) {
+clean.text <- function(x) {
   str_trim(levels(factor(na.omit(x))))
 }
 
