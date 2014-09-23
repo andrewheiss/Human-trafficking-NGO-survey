@@ -2,12 +2,13 @@
 # Load libraries
 #-----------------
 library(dplyr)
+library(tidyr)
+library(stringr)
 library(ggplot2)
 library(scales)
+library(grid)
 # library(extrafont)
-library(stringr)
 library(pander)
-library(tidyr)
 
 
 #----------------
@@ -17,12 +18,7 @@ library(tidyr)
 num.country.responses <- length(na.omit(responses.countries$work.country))
 num.responses <- length(na.omit(responses.org.foreign$home.country))
 
-# Plot stuff
 bar.color.single <- "#243259"
-
-theme_bar <- theme_bw(9) + 
-  theme(panel.grid.major.x=element_blank())#, 
-#         text=element_text(family="Clear Sans"))
 
 
 #-------------------
@@ -45,23 +41,28 @@ numeric.summary <- function(x) {
 }
 
 # Return a data frame of counts and proportions for factor levels
-factor.summary <- function(x, sort_me=FALSE, total=TRUE) {
+factor.summary <- function(x, sort.me=FALSE, total=TRUE) {
   df <- data.frame(table(x)) %>%
     mutate(perc = round(Freq/sum(Freq) * 100, 2))
-  if (sort_me == TRUE) {
+  
+  if (sort.me == TRUE) {
     df <- df %>% arrange(desc(Freq)) %>%
       filter(Freq > 0)
   }
+  
   colnames(df) <- c("Answer", "Responses", "%")
+  
   if (total) {
     df <- rbind(as.matrix(df), c("Total", sum(df$Responses), "—")) 
   }
+  
   df
 }
 
 # Return a data frame of counts and proportions for multiple responses
 separate.answers.summary <- function(df, cols, labels, n=num.country.responses, total=FALSE) {
   cols.to.select <- which(colnames(df) %in% cols)
+  
   df <- df %>%
     select(survey.id, cols.to.select) %>%
     gather(question, value, -survey.id) %>%
@@ -69,10 +70,13 @@ separate.answers.summary <- function(df, cols, labels, n=num.country.responses, 
     group_by(question) %>%
     summarize(response = sum(value, na.rm=TRUE), 
               pct = round(response / n(), 2))
+  
   colnames(df) <- c("Answer", "Responses", "%")
+  
   if (total) {
     df <- rbind(as.matrix(df), c("Total responses", n, "—"))
   }
+  
   df
 }
 
