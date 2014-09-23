@@ -35,7 +35,6 @@ source("../R/summary_functions.R", chdir=TRUE)
 # TODO: Embed fonts in plots
 # MAYBE: Multicolumnn table instead of list?
 # TODO: Maps (without proprietary stuff)
-# TODO: Add comments to summary_functions.R
 
 ```
 

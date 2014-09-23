@@ -1,3 +1,6 @@
+#-----------------
+# Load libraries
+#-----------------
 library(dplyr)
 library(ggplot2)
 library(scales)
@@ -6,19 +9,31 @@ library(stringr)
 library(pander)
 library(tidyr)
 
-bar.color.single <- "#243259"
 
+#----------------
+# Set variables
+#----------------
+# Denominators
 num.country.responses <- length(na.omit(responses.countries$work.country))
 num.responses <- length(na.omit(responses.org.foreign$home.country))
+
+# Plot stuff
+bar.color.single <- "#243259"
 
 theme_bar <- theme_bw(9) + 
   theme(panel.grid.major.x=element_blank())#, 
 #         text=element_text(family="Clear Sans"))
 
+
+#-------------------
+# Output functions
+#-------------------
+# Return cleaned up factor levels
 clean.text <- function(x) {
   str_trim(levels(factor(na.omit(x))))
 }
 
+# Return a data frame of summary statistics
 numeric.summary <- function(x) {
   value <- c(min(x, na.rm=TRUE), max(x, na.rm=TRUE), mean(x, na.rm=TRUE),
              var(x, na.rm=TRUE), sd(x, na.rm=TRUE), length(x))
@@ -29,6 +44,7 @@ numeric.summary <- function(x) {
   output
 }
 
+# Return a data frame of counts and proportions for factor levels
 factor.summary <- function(x, sort_me=FALSE, total=TRUE) {
   df <- data.frame(table(x)) %>%
     mutate(perc = round(Freq/sum(Freq) * 100, 2))
@@ -43,6 +59,7 @@ factor.summary <- function(x, sort_me=FALSE, total=TRUE) {
   df
 }
 
+# Return a data frame of counts and proportions for multiple responses
 separate.answers.summary <- function(df, cols, labels, n=num.country.responses, total=FALSE) {
   cols.to.select <- which(colnames(df) %in% cols)
   df <- df %>%
@@ -60,6 +77,10 @@ separate.answers.summary <- function(df, cols, labels, n=num.country.responses, 
 }
 
 
+#-----------------
+# Plot functions
+#-----------------
+# Plot the summary of a factor
 plot.single.question <- function(x) {
   plot.data <- data.frame(var.to.plot = x) %>% na.omit()
   
@@ -78,7 +99,7 @@ plot.single.question <- function(x) {
     theme_bar
 }
 
-
+# Plot the summary of a multiple-response question
 plot.multiple.answers <- function(df, cols, labels, flipped=FALSE) {
   plot.data <- separate.answers.summary(df, cols, labels, n=num.responses)
   
@@ -96,4 +117,3 @@ plot.multiple.answers <- function(df, cols, labels, flipped=FALSE) {
     theme_bar + option.flip
   p
 }
-
