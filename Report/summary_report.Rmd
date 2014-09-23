@@ -34,7 +34,6 @@ source("../R/summary_functions.R", chdir=TRUE)
 # MAYBE: Find a font that covers Khmer too (not even Arial Unicode MS does, apparently)
 # TODO: Embed fonts in plots
 # MAYBE: Multicolumnn table instead of list?
-# TODO: Check that all "other" text answers are reported
 # TODO: Maps (without proprietary stuff)
 # TODO: Add comments to summary_functions.R
 
