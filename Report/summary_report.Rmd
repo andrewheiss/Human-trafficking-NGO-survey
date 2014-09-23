@@ -65,6 +65,22 @@ pandoc.table(factor.summary(responses.org.foreign$Q1.3))
 
 # Q1.4: Where is your organization's main office?
 
+*For better visual contrast, the number of NGOs shown on the map has been capped at 10. Actual country frequencies can be seen in the table that follows.*
+
+```{r, echo=FALSE, warning=FALSE, fig.width=7.5}
+ggplot(home.countries.plot, aes(map_id=id)) +
+  geom_map(aes(fill=freq_ceiling), map=world.ggmap, colour="black", size=0.25) +
+  expand_limits(x=world.ggmap$long, y=world.ggmap$lat) +
+  scale_fill_gradient(high="#ff7f00", low="#fff7bc", na.value="grey",
+                      guide="colorbar", name="# of NGOs") +
+  coord_map(xlim=c(-180,180), ylim=c(-60, 90)) +
+  theme_blank_map + theme(legend.key.width=unit(0.55, "line"))
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(factor.summary(responses.org.foreign$home.country, sort.me=TRUE))
+```
+
 
 # Q1.5: In how many countries has your organization done most of its advocacy work over the past 10 years?
 
@@ -181,8 +197,32 @@ pandoc.table(factor.summary(responses.org.foreign$Q2.6))
 
 # Q3.2: Where has your organization done advocacy work?
 
+*For better visual contrast, the number of NGOs shown on the map has been capped at 10. Actual country frequencies can be seen in the table that follows.*
+
+```{r, echo=FALSE, warning=FALSE, fig.width=7.5}
+ggplot(work.countries.plot, aes(map_id=id)) +
+  geom_map(aes(fill=freq_ceiling), map=world.ggmap, colour="black", size=0.25) +
+  expand_limits(x=world.ggmap$long, y=world.ggmap$lat) +
+  scale_fill_gradient(high="#ff7f00", low="#fff7bc", na.value="grey",
+                      guide="colorbar", name="# of NGOs") +
+  coord_map(xlim=c(-180,180), ylim=c(-60, 90)) +
+  theme_blank_map + theme(legend.key.width=unit(0.55, "line"))
+```
+
+```{r, echo=FALSE, results='asis'}
+pandoc.table(factor.summary(responses.countries$work.country, sort.me=TRUE))
+```
+
 
 # Q3.2a: Countries that have no reported advocacy work
+
+```{r, echo=FALSE, results='asis'}
+countries.left <- work.countries.plot %>% 
+  filter(is.na(freq), id != "USA") %>%
+  arrange(country) %>% select(country)
+
+pandoc.list(countries.left$country)
+```
 
 
 # Q3.3: How much does your organization know about human trafficking policy in X?
