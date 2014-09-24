@@ -38,6 +38,8 @@ source("../R/summary_functions.R", chdir=TRUE)
 # MAYBE: Find a font that covers Khmer too (not even Arial Unicode MS does, apparently)
 # TODO: Embed fonts in plots
 # MAYBE: Multicolumnn table instead of list?
+# TODO: Response rate
+# TODO: Ignore organizations marked for removal
 
 ```
 
