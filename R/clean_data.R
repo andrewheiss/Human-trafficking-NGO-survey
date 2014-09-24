@@ -77,10 +77,11 @@ countries.work <- countries %>%
 responses <- rbind(rbind(raw.main, raw.phone), raw.linkedin) %>%
   # Calculate the number of countries they responded to. If it's just one, 
   # and it's the US (187), then mark as US-only
-  mutate(num.responses = 4 - (is.na(Q3.2.1.) + is.na(Q3.2.2.) + is.na(Q3.2.3.) + is.na(Q3.2.4.))) %>%
+  mutate(num.country.responses = 4 - (is.na(Q3.2.1.) + is.na(Q3.2.2.) + 
+                                        is.na(Q3.2.3.) + is.na(Q3.2.4.))) %>%
   mutate(work.us = ifelse(Q3.2.1. == 187 | Q3.2.2. == 187 | 
                             Q3.2.3. == 187 | Q3.2.4. == 187, 1, 0)) %>%
-  mutate(work.only.us = ifelse(num.responses == work.us, TRUE, FALSE),
+  mutate(work.only.us = ifelse(num.country.responses == work.us, TRUE, FALSE),
          work.only.us = ifelse(is.na(work.only.us), FALSE, work.only.us)) %>%
   select(-work.us)
 
@@ -107,9 +108,6 @@ responses.org <- responses %>%
          Q4.3 = factor(Q4.3, labels=c("No", "Yes"))) %>%
   mutate(start.time = ymd_hms(start.time),
          end.time = ymd_hms(end.time))
-
-# Filter organizations that only work in the US
-responses.org.foreign <- responses.org %>% filter(work.only.us == FALSE)
 
 
 # Create a clean data frame with one row per country response, indexed by
@@ -223,6 +221,29 @@ world.ggmap <- ggplot2::fortify(world.map, region = "ISO3")
 #------------------
 # Save everything
 #------------------
+# Fix column order
+responses.org <- responses.org %>%
+  select(survey.id, Q1.2, Q1.3, Q1.4, home.country, work.only.us, Q1.5, 
+         Q1.5.factor, Q2.1, Q2.2_1, Q2.2_2, Q2.2_3, Q2.2_4, Q2.2_4_TEXT, 
+         Q2.3_1, Q2.3_2, Q2.3_3, Q2.3_3_TEXT, Q2.4_1, Q2.4_2, Q2.4_3, Q2.4_4, 
+         Q2.4_5, Q2.4_5_TEXT, Q2.5, Q2.6, Q4.1, Q4.2, Q4.3, Q4.4, Q4.5, 
+         LocationLatitude, LocationLongitude, num.country.responses, ip.address, 
+         start.time, end.time, finished)
+
+responses.countries <- responses.countries %>%
+  select(survey.id, loop.number, Q3.2, work.country, Q3.3, Q3.4, Q3.5_1, Q3.5_2, 
+         Q3.5_3, Q3.5_4, Q3.5_5, Q3.5_5_TEXT, Q3.6, Q3.7, Q3.8, Q3.9_1, Q3.9_2, 
+         Q3.9_3, Q3.9_4, Q3.9_5, Q3.9_6, Q3.9_7, Q3.9_8, Q3.9_9, Q3.9_10, Q3.10, 
+         Q3.11, Q3.12, Q3.13, Q3.14, Q3.15, Q3.16, Q3.17, Q3.18_1, Q3.18_2, 
+         Q3.18_3, Q3.18_4, Q3.18_4_TEXT, Q3.18_5, Q3.18_6, Q3.19, Q3.20, Q3.21_1, 
+         Q3.21_2, Q3.21_3, Q3.21_4, Q3.21_4_TEXT, Q3.22, Q3.23, Q3.24, Q3.25, 
+         Q3.26, Q3.27, Q3.28, Q3.29, Q3.30) %>%
+  arrange(survey.id)
+
+# Filter organizations that only work in the US
+responses.org.foreign <- responses.org %>% filter(work.only.us == FALSE)
+
+# Save R data
 save.image(file="../Data/responses.RData", compress="gzip")
 
 # Save CSV files
