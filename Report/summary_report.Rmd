@@ -40,6 +40,14 @@ source("../R/summary_functions.R", chdir=TRUE)
 # MAYBE: Multicolumnn table instead of list?
 # TODO: Response rate
 # TODO: Ignore organizations marked for removal
+# TODO: Figure out correct denominator for response rate
+#   Infer that half of the US-based organizations that didn't respond work solely in the US, since 40 of the 78 didn't
+# TODO: Figure out correct denominator for multiple answer responses
+#   Multiple answers, make column looking for if all the possible answers are blank - if so, ignore from denominators - since we forgot "none of the above" or "don't know"
+# TODO: Include row for number of unique countries
+# TODO: Percent column using decimal funnily
+# TODO: Explain conditional questions
+# TODO: Data dictionary for labels (http://stackoverflow.com/questions/2151147/using-stata-variable-labels-in-r)
 
 ```
 
