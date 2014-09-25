@@ -48,6 +48,9 @@ source("../R/summary_functions.R", chdir=TRUE)
 # TODO: Percent column using decimal funnily
 # TODO: Explain conditional questions
 # TODO: Data dictionary for labels (http://stackoverflow.com/questions/2151147/using-stata-variable-labels-in-r)
+# TODO: Make a .do file for loading the csv files into Stata and labeling them 
+#   http://stackoverflow.com/questions/9645564/how-can-i-import-and-use-labels-from-one-stata-file-to-the-current
+#   http://stackoverflow.com/questions/14591130/in-stata-how-do-i-add-variable-labels-from-a-separate-csv-file
 
 ```
 
