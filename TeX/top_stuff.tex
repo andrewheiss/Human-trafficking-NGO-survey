@@ -1,2 +1,13 @@
+% Start each section on its own page
 \let\stdsection\section
 \renewcommand\section{\newpage\stdsection}
+
+% Switch fonts according to language!
+% Adapted from http://tex.stackexchange.com/a/129032/11851
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\usepackage[Latin, Khmer, Thai]{ucharclasses}
+
+\setDefaultTransitions{\normalfont}{}
+\setTransitionsFor{Khmer}{\fontspec{Khmer}}{}  % From http://www.google.com/fonts/specimen/Khmer
+\setTransitionsFor{Thai}{\fontspec{Thonburi}}{}
