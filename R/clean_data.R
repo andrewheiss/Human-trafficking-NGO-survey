@@ -107,7 +107,8 @@ responses.org <- responses %>%
          Q4.2 = factor(Q4.2, labels=c("No", "Yes")),
          Q4.3 = factor(Q4.3, labels=c("No", "Yes"))) %>%
   mutate(start.time = ymd_hms(start.time),
-         end.time = ymd_hms(end.time))
+         end.time = ymd_hms(end.time)) %>%
+  mutate(done = 1)  # Dummy marker for cumsum later
 
 
 # Create a clean data frame with one row per country response, indexed by
@@ -228,7 +229,7 @@ responses.org <- responses.org %>%
          Q2.3_1, Q2.3_2, Q2.3_3, Q2.3_3_TEXT, Q2.4_1, Q2.4_2, Q2.4_3, Q2.4_4, 
          Q2.4_5, Q2.4_5_TEXT, Q2.5, Q2.6, Q4.1, Q4.2, Q4.3, Q4.4, Q4.5, 
          LocationLatitude, LocationLongitude, num.country.responses, ip.address, 
-         start.time, end.time, finished)
+         start.time, end.time, finished, done)
 
 responses.countries <- responses.countries %>%
   select(survey.id, loop.number, Q3.2, work.country, Q3.3, Q3.4, Q3.5_1, Q3.5_2, 
@@ -241,7 +242,10 @@ responses.countries <- responses.countries %>%
   arrange(survey.id)
 
 # Filter organizations that only work in the US
-responses.org.foreign <- responses.org %>% filter(work.only.us == FALSE)
+responses.org.foreign <- responses.org %>% filter(work.only.us == FALSE) %>%
+  arrange(end.time) %>%
+  mutate(completed.total = cumsum(done)) %>%
+  select(-done)
 
 # Save R data
 save.image(file="../Data/responses.RData", compress="gzip")

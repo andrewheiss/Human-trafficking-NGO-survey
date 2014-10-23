@@ -89,6 +89,10 @@ theme_bar <- theme_bw(9) +
   theme(panel.grid.major.x=element_blank())#,
         #text=element_text(family="Clear Sans"))
 
+theme_line <- theme_bw(9) + 
+  theme(panel.grid.minor.x = element_blank(),
+        axis.ticks = element_blank())
+
 theme_blank_map <- theme(panel.background = element_rect(fill="white"),
                          panel.grid.major = element_blank(),
                          panel.grid.minor = element_blank(),

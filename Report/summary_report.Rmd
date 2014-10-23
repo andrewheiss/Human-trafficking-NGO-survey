@@ -55,6 +55,22 @@ source("../R/summary_functions.R", chdir=TRUE)
 ```
 
 
+# Survey responses over time
+
+*Orange lines indicate batch of e-mail reminders*
+
+```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
+email.blasts <- ymd(c('2014-07-03', '2014-07-07', '2014-07-17', '2014-07-23', '2014-08-04', '2014-08-14', '2014-08-19', '2014-09-15'))  # '2014-10-16'
+
+p <- ggplot(responses.org.foreign, aes(end.time, completed.total))
+p + geom_line(colour=bar.color.single, size=2) + 
+  geom_vline(xintercept=as.numeric(email.blasts), 
+             colour="#ff7f00", linetype="dotted", size=0.5) +
+  labs(x=NULL, y="Cummulative number of non-US responses\n") + 
+  theme_line
+```
+
+
 # Q1.2: What is the name of your organization?
 
 ```{r, echo=FALSE, results='asis', cache=FALSE}
