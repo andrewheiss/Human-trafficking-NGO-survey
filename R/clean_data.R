@@ -81,6 +81,11 @@ responses <- rbind(rbind(raw.main, raw.phone), raw.linkedin) %>%
                                         is.na(Q3.2.3.) + is.na(Q3.2.4.))) %>%
   mutate(work.us = ifelse(Q3.2.1. == 187 | Q3.2.2. == 187 | 
                             Q3.2.3. == 187 | Q3.2.4. == 187, 1, 0)) %>%
+  # Replace Andorra with Taiwan
+  mutate(Q1.4 = ifelse(Q1.4 == 4, 200, Q1.4)) %>%
+  # Fix Macau entry
+  mutate(Q1.4 = ifelse(Q1.2 == "Good Shepherd Centre in Macau", 201, Q1.4)) %>%
+  mutate(Q3.2.1. = ifelse(Q1.2 == "Good Shepherd Centre in Macau", 201, Q3.2.1.)) %>%
   mutate(work.only.us = ifelse(num.country.responses == work.us, TRUE, FALSE),
          work.only.us = ifelse(is.na(work.only.us), FALSE, work.only.us)) %>%
   select(-work.us)
@@ -95,8 +100,6 @@ responses.org <- responses %>%
   rename(survey.id = V1, ip.address = V6, 
          start.time = V8, end.time = V9, finished = V10,
          Q2.1 = Q2.1_1) %>%
-  # Replace Andorra with Taiwan
-  mutate(Q1.4 = ifelse(Q1.4 == 4, 200, Q1.4)) %>%
   left_join(countries.home, by="Q1.4") %>%  # Join country names
   
   # Clean variables
