@@ -218,8 +218,10 @@ work.countries.plot <- countries %>%
   arrange(desc(freq))
 
 # Load map information
-world.map <- readShapeSpatial("../Data/maps/TM_WORLD_BORDERS_SIMPL-0.3.shp")
-world.ggmap <- ggplot2::fortify(world.map, region = "ISO3")
+# world.map <- readShapeSpatial("../Data/maps/TM_WORLD_BORDERS_SIMPL-0.3.shp")
+world.map <- readShapeSpatial("../Data/maps/ne_110m_admin_0_countries.shp")
+# world.ggmap <- ggplot2::fortify(world.map, region = "ISO3")
+world.ggmap <- ggplot2::fortify(world.map, region = "iso_a3")
 
 
 #------------------
