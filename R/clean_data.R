@@ -84,8 +84,12 @@ responses <- rbind(rbind(raw.main, raw.phone), raw.linkedin) %>%
   # Replace Andorra with Taiwan
   mutate(Q1.4 = ifelse(Q1.4 == 4, 200, Q1.4)) %>%
   # Fix Macau entry
-  mutate(Q1.4 = ifelse(Q1.2 == "Good Shepherd Centre in Macau", 201, Q1.4)) %>%
-  mutate(Q3.2.1. = ifelse(Q1.2 == "Good Shepherd Centre in Macau", 201, Q3.2.1.)) %>%
+  mutate(Q1.4 = ifelse(V1 == "R_bO3ymqjTD4gaf6B", 201, Q1.4)) %>%
+  mutate(Q3.2.1. = ifelse(V1 == "R_bO3ymqjTD4gaf6B", 201, Q3.2.1.)) %>%
+  # Fix Kosovo entry
+  mutate(Q1.4 = ifelse(V1 == "R_5jSZGPXgNgKd3z7", 202, Q1.4)) %>%
+  mutate(Q3.2.1. = ifelse(V1 == "R_5jSZGPXgNgKd3z7", 202, Q3.2.1.)) %>%
+  
   mutate(work.only.us = ifelse(num.country.responses == work.us, TRUE, FALSE),
          work.only.us = ifelse(is.na(work.only.us), FALSE, work.only.us)) %>%
   select(-work.us)
