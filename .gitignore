@@ -15,6 +15,7 @@ Data/Human_Trafficking_NGOs_survey*
 Data/responses.RData
 Data/responses_*.csv
 Data/permission_given.csv
+Data/Raw*
 # Packrat
 .Rproj.user
 packrat/lib*/

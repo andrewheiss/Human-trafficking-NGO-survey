@@ -42,7 +42,11 @@ fix.na <- function(x) {
 #------------
 # The phone and LinkedIn surveys need an empty Q67 added (the banner image) 
 # so that the three can be merged correctly
-raw.main <- load.qualtrics("../Data/Human_Trafficking_NGOs_survey.csv")
+remove.these <- c("R_a3h9T1VCCVtFNiZ", "R_1TSQdPWtyVquNbT", "R_50ji4cwqfmw0LuR", 
+                  "R_78VC6tatklrTn4p", "R_7OPhbLheoXTQWwt", "R_24zAbN0FLApYPJz", 
+                  "R_0xFk7qouXMSspUh", "R_cYftSLVHgXKMMNn", "R_0dfsbycuhkGYFFz")
+raw.main <- load.qualtrics("../Data/Human_Trafficking_NGOs_survey.csv") %>%
+  filter(!(V1 %in% remove.these))
 
 raw.phone <- load.qualtrics("../Data/Human_Trafficking_NGOs_survey_inline_for_phone.csv") %>%
   mutate(Q67 = NA) 
