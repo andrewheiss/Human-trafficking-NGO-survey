@@ -87,11 +87,16 @@ pandoc.list(clean.text(org.names$name))
 # Q1.3: Would you like your organization to remain anonymous in this study's reports?
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
-plot.single.question(responses.org.foreign$Q1.3)
+p <- plot.single.question(responses.org.foreign$Q1.3)
+ggsave(p, filename="figures/fig1_3.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig1_3.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(factor.summary(responses.org.foreign$Q1.3))
+sum.table <- pandoc.table.return(factor.summary(responses.org.foreign$Q1.3))
+cat(sum.table)
+cat(sum.table, file="tables/table1_3.md")
 ```
 
 
@@ -100,44 +105,59 @@ pandoc.table(factor.summary(responses.org.foreign$Q1.3))
 *For better visual contrast, the number of NGOs shown on the map has been capped at 10. Actual country frequencies can be seen in the table that follows.*
 
 ```{r, echo=FALSE, warning=FALSE, fig.width=7.5}
-ggplot(home.countries.plot, aes(map_id=id)) +
+p <- ggplot(home.countries.plot, aes(map_id=id)) +
   geom_map(aes(fill=freq_ceiling), map=world.ggmap, colour="black", size=0.25) +
   expand_limits(x=world.ggmap$long, y=world.ggmap$lat) +
   scale_fill_gradient(high="#ff7f00", low="#fff7bc", na.value="grey",
                       guide="colorbar", name="# of NGOs") +
   coord_map(xlim=c(-180,180), ylim=c(-60, 90)) +
   theme_blank_map + theme(legend.key.width=unit(0.55, "line"))
+ggsave(p, filename="figures/fig1_4.pdf", width=7.5, height=4, units="in")
+ggsave(p, filename="figures/fig1_4.png", width=7.5, height=4, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(factor.summary(responses.org.foreign$home.country, sort.me=TRUE))
+sum.table <- pandoc.table.return(factor.summary(responses.org.foreign$home.country, sort.me=TRUE))
+cat(sum.table)
+cat(sum.table, file="tables/table1_4.md")
 ```
 
 
 # Q1.5: In how many countries has your organization done most of its advocacy work over the past 10 years?
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
-plot.single.question(responses.org.foreign$Q1.5.factor)
+p <- plot.single.question(responses.org.foreign$Q1.5.factor)
+ggsave(p, filename="figures/fig1_5.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig1_5.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(factor.summary(responses.org.foreign$Q1.5.factor))
+sum.table <- pandoc.table.return(factor.summary(responses.org.foreign$Q1.5.factor))
+cat(sum.table)
+cat(sum.table, file="tables/table1_5.md")
 ```
 
 
 # Q2.1: About what percent of your organization's time and resources are spent on fighting against trafficking or helping victims of trafficking?
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
-ggplot(responses.org.foreign, aes(x=Q2.1/100, y=(..count.. / sum(..count..)))) + 
+p <- ggplot(responses.org.foreign, aes(x=Q2.1/100, y=(..count.. / sum(..count..)))) + 
   geom_histogram(binwidth=.1, fill=bar.color.single) + 
   labs(x="Proportion of time", y="Proportion of responses") + 
   scale_x_continuous(labels=percent, limits=c(0, 1), breaks=seq(0, 1, 0.2)) +
   scale_y_continuous(labels=percent) + 
   theme_bar
+ggsave(p, filename="figures/fig2_1.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig2_1.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(numeric.summary(responses.org.foreign$Q2.1))
+sum.table <- pandoc.table.return(numeric.summary(responses.org.foreign$Q2.1))
+cat(sum.table)
+cat(sum.table, file="tables/table2_1.md")
 ```
 
 
@@ -148,12 +168,17 @@ cols <- c("Q2.2_1", "Q2.2_2", "Q2.2_3", "Q2.2_4")
 labels <- c("Organ trafficking", "Sex trafficking", 
             "Labor trafficking", "Other")
 
-plot.multiple.answers(responses.org.foreign, cols, labels)
+p <- plot.multiple.answers(responses.org.foreign, cols, labels)
+ggsave(p, filename="figures/fig2_2.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig2_2.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(separate.answers.summary(responses.org.foreign, cols, 
-                                      labels, n=num.responses, total=TRUE))
+sum.table <- pandoc.table.return(separate.answers.summary(responses.org.foreign, 
+                                                          cols, labels, total=TRUE))
+cat(sum.table)
+cat(sum.table, file="tables/table2_2.md")
 ```
 
 ## Other responses
@@ -169,12 +194,17 @@ pandoc.list(clean.text(responses.org.foreign$Q2.2_4_TEXT))
 cols <- c("Q2.3_1", "Q2.3_2", "Q2.3_3")
 labels <- c("Children", "Adults", "Other")
 
-plot.multiple.answers(responses.org.foreign, cols, labels)
+p <- plot.multiple.answers(responses.org.foreign, cols, labels)
+ggsave(p, filename="figures/fig2_3.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig2_3.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(separate.answers.summary(responses.org.foreign, cols, 
-                                      labels, n=num.responses, total=TRUE))
+sum.table <- pandoc.table.return(separate.answers.summary(responses.org.foreign, 
+                                                          cols, labels, total=TRUE))
+cat(sum.table)
+cat(sum.table, file="tables/table2_3.md")
 ```
 
 ## Other responses
@@ -191,12 +221,17 @@ cols <- c("Q2.4_1", "Q2.4_2", "Q2.4_3", "Q2.4_4", "Q2.4_5")
 labels <- c("Prevention and education", "Prosecutions and legal issues",
             "Victim protection", "Victim assistance", "Other")
 
-plot.multiple.answers(responses.org.foreign, cols, labels)
+p <- plot.multiple.answers(responses.org.foreign, cols, labels)
+ggsave(p, filename="figures/fig2_4.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig2_4.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(separate.answers.summary(responses.org.foreign, cols, 
-                                      labels, n=num.responses, total=TRUE))
+sum.table <- pandoc.table.return(separate.answers.summary(responses.org.foreign, 
+                                                          cols, labels, total=TRUE))
+cat(sum.table)
+cat(sum.table, file="tables/table2_4.md")
 ```
 
 ## Other responses
@@ -209,22 +244,32 @@ pandoc.list(clean.text(responses.org.foreign$Q2.4_5_TEXT))
 # Q2.5: The US State Department issues an annual Trafficking in Persons (TIP) report. Have you ever heard of this annual report?
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
-plot.single.question(responses.org.foreign$Q2.5)
+p <- plot.single.question(responses.org.foreign$Q2.5)
+ggsave(p, filename="figures/fig2_5.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig2_5.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(factor.summary(responses.org.foreign$Q2.5))
+sum.table <- pandoc.table.return(factor.summary(responses.org.foreign$Q2.5))
+cat(sum.table)
+cat(sum.table, file="tables/table2_5.md")
 ```
 
 
 # Q2.6: In Fall 2013 an NGO named WalkFree published a "Human Trafficking Index" that rated countries on how many trafficking victims they have. Have you heard of this index?
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
-plot.single.question(responses.org.foreign$Q2.6)
+p <- plot.single.question(responses.org.foreign$Q2.6)
+ggsave(p, filename="figures/fig2_6.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig2_6.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(factor.summary(responses.org.foreign$Q2.6))
+sum.table <- pandoc.table.return(factor.summary(responses.org.foreign$Q2.6))
+cat(sum.table)
+cat(sum.table, file="tables/table2_6.md")
 ```
 
 
@@ -234,17 +279,22 @@ pandoc.table(factor.summary(responses.org.foreign$Q2.6))
 *For better visual contrast, the number of NGOs shown on the map has been capped at 10. Actual country frequencies can be seen in the table that follows.*
 
 ```{r, echo=FALSE, warning=FALSE, fig.width=7.5}
-ggplot(work.countries.plot, aes(map_id=id)) +
+p <- ggplot(work.countries.plot, aes(map_id=id)) +
   geom_map(aes(fill=freq_ceiling), map=world.ggmap, colour="black", size=0.25) +
   expand_limits(x=world.ggmap$long, y=world.ggmap$lat) +
   scale_fill_gradient(high="#ff7f00", low="#fff7bc", na.value="grey",
                       guide="colorbar", name="# of NGOs") +
   coord_map(xlim=c(-180,180), ylim=c(-60, 90)) +
   theme_blank_map + theme(legend.key.width=unit(0.55, "line"))
+ggsave(p, filename="figures/fig3_2.pdf", width=7.5, height=4, units="in")
+ggsave(p, filename="figures/fig3_2.png", width=7.5, height=4, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(factor.summary(responses.countries$work.country, sort.me=TRUE))
+sum.table <- pandoc.table.return(factor.summary(responses.countries$work.country, sort.me=TRUE))
+cat(sum.table)
+cat(sum.table, file="tables/table3_2.md")
 ```
 
 
@@ -262,22 +312,32 @@ pandoc.list(countries.left$country)
 # Q3.3: How much does your organization know about human trafficking policy in X?
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
-plot.single.question(responses.countries$Q3.3)
+p <- plot.single.question(responses.countries$Q3.3)
+ggsave(p, filename="figures/fig3_3.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig3_3.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(factor.summary(responses.countries$Q3.3))
+sum.table <- pandoc.table.return(factor.summary(responses.countries$Q3.3))
+cat(sum.table)
+cat(sum.table, file="tables/table3_3.md")
 ```
 
 
 # Q3.4: How often does your organization work directly with the government of X?
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
-plot.single.question(responses.countries$Q3.4)
+p <- plot.single.question(responses.countries$Q3.4)
+ggsave(p, filename="figures/fig3_4.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig3_4.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(factor.summary(responses.countries$Q3.4))
+sum.table <- pandoc.table.return(factor.summary(responses.countries$Q3.4))
+cat(sum.table)
+cat(sum.table, file="tables/table3_4.md")
 ```
 
 
@@ -288,12 +348,17 @@ cols <- c("Q3.5_1", "Q3.5_2", "Q3.5_3", "Q3.5_4", "Q3.5_5")
 labels <- c("The national government", "NGOs and civil society",
             "Embassies or foreign governments", "International organizations", "Other")
 
-plot.multiple.answers(responses.countries, cols, labels)
+p <- plot.multiple.answers(responses.countries, cols, labels)
+ggsave(p, filename="figures/fig3_5.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig3_5.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(separate.answers.summary(responses.countries, cols, 
-                                      labels, n=num.country.responses, total=TRUE))
+sum.table <- pandoc.table.return(separate.answers.summary(responses.countries, 
+                                                          cols, labels, total=TRUE))
+cat(sum.table)
+cat(sum.table, file="tables/table3_5.md")
 ```
 
 ## Other responses
@@ -320,11 +385,16 @@ pandoc.list(clean.text(responses.countries$Q3.7))
 # Q3.8: Over the last 10–15 years, has the United States or its embassy been active in the fight against human trafficking in X?
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
-plot.single.question(responses.countries$Q3.8)
+p <- plot.single.question(responses.countries$Q3.8)
+ggsave(p, filename="figures/fig3_8.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig3_8.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(factor.summary(responses.countries$Q3.8))
+sum.table <- pandoc.table.return(factor.summary(responses.countries$Q3.8))
+cat(sum.table)
+cat(sum.table, file="tables/table3_8.md")
 ```
 
 
@@ -339,12 +409,17 @@ labels <- c("Asking for legislation", "Convening conferences or workshops",
             "Contributing to a government action plan", "Other", "Don't know",
             "The US has not been involved in trafficking issues")
 
-plot.multiple.answers(responses.countries, cols, labels)
+p <- plot.multiple.answers(responses.countries, cols, labels)
+ggsave(p, filename="figures/fig3_9.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig3_9.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(separate.answers.summary(responses.countries, cols, 
-                                      labels, n=num.country.responses, total=TRUE))
+sum.table <- pandoc.table.return(separate.answers.summary(responses.countries, 
+                                                          cols, labels, total=TRUE))
+cat(sum.table)
+cat(sum.table, file="tables/table3_9.md")
 ```
 
 
@@ -383,7 +458,7 @@ pandoc.list(clean.text(responses.countries$Q3.14))
 ```
 
 
-# Q3.15: Please explain how the United States increased government attention to trafficking in X:
+# Q3.15: Please explain how the United States trained government officials in X:
 
 ```{r, echo=FALSE, results='asis'}
 pandoc.list(clean.text(responses.countries$Q3.15))
@@ -412,12 +487,17 @@ labels <- c("Direct contact (meetings)", "Direct cooperation",
             "Our organization received funding", "Other", 
             "We have not had any contact or funding from the US", "Don't know")
 
-plot.multiple.answers(responses.countries, cols, labels)
+p <- plot.multiple.answers(responses.countries, cols, labels)
+ggsave(p, filename="figures/fig3_18.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig3_18.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(separate.answers.summary(responses.countries, cols, 
-                                      labels, n=num.country.responses, total=TRUE))
+sum.table <- pandoc.table.return(separate.answers.summary(responses.countries, 
+                                                          cols, labels, total=TRUE))
+cat(sum.table)
+cat(sum.table, file="tables/table3_18.md")
 ```
 
 ## Other responses
@@ -430,22 +510,32 @@ pandoc.list(clean.text(responses.countries$Q3.18_4_TEXT))
 # Q3.19: Overall, how important a role would you say that the United States or its embassy have played in fighting trafficking in X over the last 10–15 years?
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
-plot.single.question(responses.countries$Q3.19)
+p <- plot.single.question(responses.countries$Q3.19)
+ggsave(p, filename="figures/fig3_19.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig3_19.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(factor.summary(responses.countries$Q3.19))
+sum.table <- pandoc.table.return(factor.summary(responses.countries$Q3.19))
+cat(sum.table)
+cat(sum.table, file="tables/table3_19.md")
 ```
 
 
 # Q3.20: In your view, how hard is the government of X working to combat trafficking in persons?
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
-plot.single.question(responses.countries$Q3.20)
+p <- plot.single.question(responses.countries$Q3.20)
+ggsave(p, filename="figures/fig3_20.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig3_20.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(factor.summary(responses.countries$Q3.20))
+sum.table <- pandoc.table.return(factor.summary(responses.countries$Q3.20))
+cat(sum.table)
+cat(sum.table, file="tables/table3_20.md")
 ```
 
 
@@ -455,12 +545,17 @@ pandoc.table(factor.summary(responses.countries$Q3.20))
 cols <- c("Q3.21_1", "Q3.21_2", "Q3.21_3", "Q3.21_4")
 labels <- c("Government of X", "Another government", "Other NGOs", "Other")
 
-plot.multiple.answers(responses.countries, cols, labels)
+p <- plot.multiple.answers(responses.countries, cols, labels)
+ggsave(p, filename="figures/fig3_21.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig3_21.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(separate.answers.summary(responses.countries, cols, 
-                                      labels, n=num.country.responses, total=TRUE))
+sum.table <- pandoc.table.return(separate.answers.summary(responses.countries, 
+                                                          cols, labels, total=TRUE))
+cat(sum.table)
+cat(sum.table, file="tables/table3_21.md")
 ```
 
 ## Other responses
@@ -473,22 +568,32 @@ pandoc.list(clean.text(responses.countries$Q3.21_4_TEXT))
 # Q3.22: Which TIP tier rating did X receive this year?
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
-plot.single.question(responses.countries$Q3.22)
+p <- plot.single.question(responses.countries$Q3.22)
+ggsave(p, filename="figures/fig3_22.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig3_22.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(factor.summary(responses.countries$Q3.22))
+sum.table <- pandoc.table.return(factor.summary(responses.countries$Q3.22))
+cat(sum.table)
+cat(sum.table, file="tables/table3_22.md")
 ```
 
 
 # Q3.23: Have you ever heard—in public or private—officials in X mention the TIP tier rating?
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
-plot.single.question(responses.countries$Q3.23)
+p <- plot.single.question(responses.countries$Q3.23)
+ggsave(p, filename="figures/fig3_23.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig3_23.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(factor.summary(responses.countries$Q3.23))
+sum.table <- pandoc.table.return(factor.summary(responses.countries$Q3.23))
+cat(sum.table)
+cat(sum.table, file="tables/table3_23.md")
 ```
 
 
@@ -502,55 +607,80 @@ pandoc.list(clean.text(responses.countries$Q3.24))
 # Q3.25: Overall, has the US influence on human trafficking policy in X been positive or negative?
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
-plot.single.question(responses.countries$Q3.25)
+p <- plot.single.question(responses.countries$Q3.25)
+ggsave(p, filename="figures/fig3_25.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig3_25.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(factor.summary(responses.countries$Q3.25))
+sum.table <- pandoc.table.return(factor.summary(responses.countries$Q3.25))
+cat(sum.table)
+cat(sum.table, file="tables/table3_25.md")
 ```
 
 
 # Q3.26: Would you say that the government of X's efforts to combat trafficking over the past 10–15 years have:
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
-plot.single.question(responses.countries$Q3.26)
+p <- plot.single.question(responses.countries$Q3.26)
+ggsave(p, filename="figures/fig3_26.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig3_26.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(factor.summary(responses.countries$Q3.26))
+sum.table <- pandoc.table.return(factor.summary(responses.countries$Q3.26))
+cat(sum.table)
+cat(sum.table, file="tables/table3_26.md")
 ```
 
 
 # Q3.27: Does a member of the government or ruling party of X sit on your board?
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
-plot.single.question(responses.countries$Q3.27)
+p <- plot.single.question(responses.countries$Q3.27)
+ggsave(p, filename="figures/fig3_27.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig3_27.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(factor.summary(responses.countries$Q3.27))
+sum.table <- pandoc.table.return(factor.summary(responses.countries$Q3.27))
+cat(sum.table)
+cat(sum.table, file="tables/table3_27.md")
 ```
 
 
 # Q3.28: Is your organization required by law to have a member of the government or ruling party sit on your board?
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
-plot.single.question(responses.countries$Q3.28)
+p <- plot.single.question(responses.countries$Q3.28)
+ggsave(p, filename="figures/fig3_28.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig3_28.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(factor.summary(responses.countries$Q3.28))
+sum.table <- pandoc.table.return(factor.summary(responses.countries$Q3.28))
+cat(sum.table)
+cat(sum.table, file="tables/table3_28.md")
 ```
 
 
 # Q3.29: How much is your organization's work restricted by government regulations in X?
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
-plot.single.question(responses.countries$Q3.29)
+p <- plot.single.question(responses.countries$Q3.29)
+ggsave(p, filename="figures/fig3_29.pdf", width=6.5, height=3, units="in")
+ggsave(p, filename="figures/fig3_29.png", width=6.5, height=3, units="in")
+p
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pandoc.table(factor.summary(responses.countries$Q3.29))
+sum.table <- pandoc.table.return(factor.summary(responses.countries$Q3.29))
+cat(sum.table)
+cat(sum.table, file="tables/table3_29.md")
 ```
 
 

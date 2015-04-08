@@ -60,8 +60,14 @@ factor.summary <- function(x, sort.me=FALSE, total=TRUE) {
 }
 
 # Return a data frame of counts and proportions for multiple responses
-separate.answers.summary <- function(df, cols, labels, n=num.country.responses, total=FALSE) {
+separate.answers.summary <- function(df, cols, labels, total=FALSE) {
   cols.to.select <- which(colnames(df) %in% cols)
+  
+  denominator <- df %>%
+    select(cols.to.select) %>%
+    mutate(num.answered = rowSums(., na.rm=TRUE)) %>%
+    filter(num.answered > 0) %>%
+    nrow()
   
   df <- df %>%
     select(survey.id, cols.to.select) %>%
@@ -69,12 +75,14 @@ separate.answers.summary <- function(df, cols, labels, n=num.country.responses, 
     mutate(question = factor(question, labels=labels, ordered=TRUE)) %>%
     group_by(question) %>%
     summarize(response = sum(value, na.rm=TRUE), 
-              pct = round(response / n(), 2))
+              pct = round(response / denominator * 100, 2),
+              plot.pct = response / denominator)
   
-  colnames(df) <- c("Answer", "Responses", "%")
+  colnames(df) <- c("Answer", "Responses", "%", "plot.pct")
   
   if (total) {
-    df <- rbind(as.matrix(df), c("Total responses", n, "—"))
+    df <- df %>% select(1:3)
+    df <- rbind(as.matrix(df), c("Total responses", denominator, "—"))
   }
   
   df
@@ -86,8 +94,15 @@ separate.answers.summary <- function(df, cols, labels, n=num.country.responses, 
 #-----------------
 # Custom themes
 theme_bar <- theme_bw(9) + 
-  theme(panel.grid.major.x=element_blank())#,
-        #text=element_text(family="Clear Sans"))
+  theme(panel.grid.minor.x=element_blank(),
+        panel.grid.major.x=element_blank())
+
+theme_bar_flipped <- theme_bw(9) + 
+  theme(panel.grid.minor.y=element_blank(),
+        panel.grid.major.y=element_blank())
+
+
+#text=element_text(family="Clear Sans"))
 
 theme_line <- theme_bw(9) + 
   theme(panel.grid.minor.x = element_blank(),
@@ -106,42 +121,52 @@ theme_blank_map <- theme(panel.background = element_rect(fill="white"),
 
 # Plot the summary of a factor
 plot.single.question <- function(x, flipped=TRUE) {
-  plot.data <- data.frame(var.to.plot = x) %>% na.omit()
+  plot.data <- data.frame(var.to.plot = x) %>% na.omit() %>%
+    group_by(var.to.plot) %>%
+    summarize(n = n()) %>%
+    mutate(y = n / sum(n))
   
   option.flip <- NULL
+  option.theme <- theme_bar
   
   if (flipped) {
-    labels <- 
     plot.data <- plot.data %>% 
       mutate(var.to.plot = factor(var.to.plot, 
                                   levels=rev(levels(plot.data$var.to.plot)), 
                                   ordered=TRUE))
     option.flip <- coord_flip()
+    option.theme <- theme_bar_flipped
   }
-    
+  
   # Do this to pass unquoted variables: 
   # aes <- eval(substitute(aes(x), list(x = substitute(x))))
-  ggplot(plot.data, aes(x = var.to.plot)) + 
-    geom_bar(aes(y=(..count..)/sum(..count..)), fill=bar.color.single) + 
-    labs(x=NULL, y=NULL) + scale_y_continuous(labels = percent) + 
-    theme_bar + option.flip
+  ggplot(plot.data, aes(x = var.to.plot, y = y)) + 
+    geom_bar(stat="identity", fill=bar.color.single) +
+    labs(x=NULL, y=NULL) + 
+    scale_y_continuous(labels = percent, 
+                       breaks = seq(0, max(round(plot.data$y, 1)), by=0.1)) + 
+    option.flip + option.theme
 }
 
 # Plot the summary of a multiple-response question
 plot.multiple.answers <- function(df, cols, labels, flipped=TRUE) {
-  plot.data <- separate.answers.summary(df, cols, labels, n=num.responses)
+  plot.data <- separate.answers.summary(df, cols, labels)
   
   option.flip <- NULL
+  option.theme <- theme_bar
   
   if (flipped) {
     plot.data <- plot.data %>% 
       mutate(Answer = factor(Answer, levels=rev(labels), ordered=TRUE))
     option.flip <- coord_flip()
+    option.theme <- theme_bar_flipped
   }
   
   p <- ggplot(plot.data, aes(x=Answer, y=Responses)) + 
-    geom_bar(aes(y=Responses / num.responses), stat="identity", fill=bar.color.single) + 
-    labs(x=NULL, y=NULL) + scale_y_continuous(labels = percent) + 
-    theme_bar + option.flip
+    geom_bar(aes(y=plot.pct), stat="identity", fill=bar.color.single) + 
+    labs(x=NULL, y=NULL) + 
+    scale_y_continuous(labels = percent, 
+                       breaks = seq(0, max(round(plot.data$plot.pct, 1)), by=0.1)) + 
+    option.theme + option.flip
   p
 }
