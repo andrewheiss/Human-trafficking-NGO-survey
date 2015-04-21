@@ -13,7 +13,6 @@
 *_files/
 tables/*
 figures/*
-
 # Data
 Data/Human_Trafficking_NGOs_survey*
 Data/responses.RData
@@ -22,7 +21,6 @@ Data/permission_given.csv
 Data/Raw*
 convert_to_stata/Original/*
 convert_to_stata/Final/*
-
 # Packrat
 .Rproj.user
 packrat/lib*/
