@@ -186,7 +186,7 @@ responses.orgs.raw <- read.csv("Original/responses_orgs.csv",
 responses.orgs <- responses.orgs.raw %>%
   mutate(Q1.3 = factor(Q1.3, levels=c("No", "Yes"), ordered=TRUE),
          home.country = factor(home.country),
-         work.only.us = factor(work.only.us, levels=c("No", "Yes"), ordered=TRUE),
+         work.only.us = factor(work.only.us, labels=c("No", "Yes"), ordered=TRUE),
          Q1.5.factor = factor(Q1.5.factor, levels=c("1", "2", "3", "4", "5+"),
                               ordered=TRUE),
          Q2.5 = factor(Q2.5, levels=c("No", "Yes"), ordered=TRUE),
@@ -237,3 +237,14 @@ save(responses.orgs.truncated, responses.orgs,
 #-------------------------------------------
 system("stata-se -b do clean_dta.do")
 system("rm clean_dta.log")
+
+# Merging
+full <- final %>% left_join(responses.orgs)
+example <- full %>% 
+  select(survey.id, loop.number, home.country, Q1.4, Q1.2, Q3.2, work.country)
+
+# write.dta(example, file="Final/example.dta", version=11)
+# table(full$home.country)
+
+# full1 <- responses.orgs %>% left_join(final)
+# table(full1$home.country)
