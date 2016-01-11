@@ -3,7 +3,7 @@ hide.anonymous: FALSE
 title: |
   | Human Trafficking Survey Results Report
   | • • •
-  | Organizations in Indonesia
+  | Organizations in Argentina
   | • • •
 author: "Judith Kelley"
 date: "`r format(Sys.time(), '%B %e, %Y')`"
@@ -210,7 +210,7 @@ output.organization <- function(country.row.id) {
 
 
 ```{r, echo=FALSE, results='asis'}
-country.id <- 79
+country.id <- 7
 orgs.in.country <- filter(responses.org, Q1.4 == country.id)
 num.orgs.in.country <- nrow(orgs.in.country)
 # sapply(1:num.orgs.in.country, FUN=output.organization)

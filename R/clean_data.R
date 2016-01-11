@@ -93,7 +93,10 @@ responses <- rbind(rbind(raw.main, raw.phone), raw.linkedin) %>%
   # Fix Kosovo entry
   mutate(Q1.4 = ifelse(V1 == "R_5jSZGPXgNgKd3z7", 202, Q1.4)) %>%
   mutate(Q3.2.1. = ifelse(V1 == "R_5jSZGPXgNgKd3z7", 202, Q3.2.1.)) %>%
-  
+  # Fix Moldova entry
+  mutate(Q3.2.1. = ifelse(V1 == "R_af28meGYcDCwGcB", 141, Q3.2.1.)) %>%
+  mutate(Q3.2.1. = ifelse(V1 %in% c("R_79zj58h1SJuR2zr",
+                                    "R_3Cc7TZ8Q7REb9k1"), 999, Q3.2.1.)) %>%
   mutate(work.only.us = ifelse(num.country.responses == work.us, TRUE, FALSE),
          work.only.us = ifelse(is.na(work.only.us), FALSE, work.only.us)) %>%
   select(-work.us)

@@ -7,7 +7,7 @@ library(stringr)
 library(ggplot2)
 library(scales)
 library(grid)
-# library(extrafont)
+library(Cairo)
 library(pander)
 
 
@@ -18,7 +18,7 @@ library(pander)
 num.country.responses <- length(na.omit(responses.countries$work.country))
 num.responses <- length(na.omit(responses.org.foreign$home.country))
 
-bar.color.single <- "#243259"
+bar.color.single <- "#235F9C"
 
 
 #-------------------
@@ -101,6 +101,28 @@ theme_bar_flipped <- theme_bw(9) +
   theme(panel.grid.minor.y=element_blank(),
         panel.grid.major.y=element_blank())
 
+theme_clean <- function(base_size=9, base_family="Source Sans Pro Light") {
+  ret <- theme_bw(base_size, base_family) + 
+    theme(panel.background = element_rect(fill="#ffffff", colour=NA),
+          axis.title.x=element_text(vjust=-0.2), axis.title.y=element_text(vjust=1.5),
+          title=element_text(vjust=1.2, family="Source Sans Pro Semibold"),
+          panel.border = element_blank(), axis.line=element_blank(),
+          panel.grid.minor=element_blank(),
+          panel.grid.major.y = element_blank(),
+          panel.grid.major.x = element_line(size=0.25, colour="grey90"),
+          axis.ticks=element_blank(),
+          legend.position="bottom", 
+          axis.title=element_text(size=rel(0.8), family="Source Sans Pro Semibold"),
+          strip.text=element_text(size=rel(0.9), family="Source Sans Pro Semibold"),
+          strip.background=element_rect(fill="#ffffff", colour=NA),
+          panel.margin=unit(1, "lines"), legend.key.size=unit(.7, "line"),
+          legend.key=element_blank())
+  
+  ret
+}
+
+theme_map_clean <- theme(legend.title=element_text(family="Source Sans Pro Semibold"),
+                         legend.text=element_text(family="Source Sans Pro Light"))
 
 #text=element_text(family="Clear Sans"))
 

@@ -37,9 +37,12 @@ fix.missing <- function(x) {
 # Load data and handle missing values
 responses.countries.raw <- read.csv("Original/responses_countries.csv",
                                     stringsAsFactors = FALSE, na.strings=c("NA", ""))
+responses.countries.orphans <- read.csv("Original/orphans_clean.csv",
+                                        stringsAsFactors=FALSE, na.strings=c("NA", ""))
+responses.countries.raw.all <- bind_rows(responses.countries.raw, responses.countries.orphans)
 
 # Clean up the data
-responses.countries <- responses.countries.raw %>%
+responses.countries <- responses.countries.raw.all %>%
   mutate(work.country = factor(work.country),
          Q3.3 = factor(Q3.3, levels=c("None", "Very little", "Little", 
                                       "Some", "A lot", "Don't know"), ordered=TRUE),
@@ -157,6 +160,9 @@ labs <- read.csv("Labels/response_countries_labels.csv",
                  stringsAsFactors=FALSE)$varlabel
 attr(final.truncated, "var.labels") <- labs
 # attr(final.truncated, "labels") <- labs  # For haven and dplyr someday
+# for (i in 1:ncol(df)) {
+#   attr(df[[i]], "label") <- NULL
+# }
 
 # Write (finally!)
 # Stata

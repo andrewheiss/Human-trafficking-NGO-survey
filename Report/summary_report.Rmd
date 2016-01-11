@@ -88,8 +88,10 @@ pandoc.list(clean.text(org.names$name))
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
 p <- plot.single.question(responses.org.foreign$Q1.3)
-ggsave(p, filename="figures/fig1_3.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig1_3.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig1_3.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig1_3.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
@@ -108,12 +110,14 @@ cat(sum.table, file="tables/table1_3.md")
 p <- ggplot(home.countries.plot, aes(map_id=id)) +
   geom_map(aes(fill=freq_ceiling), map=world.ggmap, colour="black", size=0.25) +
   expand_limits(x=world.ggmap$long, y=world.ggmap$lat) +
-  scale_fill_gradient(high="#ff7f00", low="#fff7bc", na.value="grey",
+  scale_fill_gradient(high="#F09905", low="#EFDBBF", na.value="#CCCCCC",
                       guide="colorbar", name="# of NGOs") +
   coord_map(xlim=c(-180,180), ylim=c(-60, 90)) +
   theme_blank_map + theme(legend.key.width=unit(0.55, "line"))
-ggsave(p, filename="figures/fig1_4.pdf", width=7.5, height=4, units="in")
-ggsave(p, filename="figures/fig1_4.png", width=7.5, height=4, units="in")
+ggsave(p + theme_map_clean, filename="figures/fig1_4.pdf", 
+       width=5.5, height=4, units="in", device=cairo_pdf)
+ggsave(p + theme_map_clean, filename="figures/fig1_4.png", 
+       width=5.5, height=4, units="in")
 p
 ```
 
@@ -128,8 +132,10 @@ cat(sum.table, file="tables/table1_4.md")
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
 p <- plot.single.question(responses.org.foreign$Q1.5.factor)
-ggsave(p, filename="figures/fig1_5.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig1_5.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig1_5.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig1_5.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
@@ -149,8 +155,10 @@ p <- ggplot(responses.org.foreign, aes(x=Q2.1/100, y=(..count.. / sum(..count..)
   scale_x_continuous(labels=percent, limits=c(0, 1), breaks=seq(0, 1, 0.2)) +
   scale_y_continuous(labels=percent) + 
   theme_bar
-ggsave(p, filename="figures/fig2_1.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig2_1.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig2_1.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig2_1.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
@@ -169,8 +177,10 @@ labels <- c("Organ trafficking", "Sex trafficking",
             "Labor trafficking", "Other")
 
 p <- plot.multiple.answers(responses.org.foreign, cols, labels)
-ggsave(p, filename="figures/fig2_2.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig2_2.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig2_2.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig2_2.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
@@ -195,8 +205,10 @@ cols <- c("Q2.3_1", "Q2.3_2", "Q2.3_3")
 labels <- c("Children", "Adults", "Other")
 
 p <- plot.multiple.answers(responses.org.foreign, cols, labels)
-ggsave(p, filename="figures/fig2_3.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig2_3.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig2_3.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig2_3.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
@@ -222,8 +234,10 @@ labels <- c("Prevention and education", "Prosecutions and legal issues",
             "Victim protection", "Victim assistance", "Other")
 
 p <- plot.multiple.answers(responses.org.foreign, cols, labels)
-ggsave(p, filename="figures/fig2_4.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig2_4.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig2_4.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig2_4.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
@@ -245,8 +259,10 @@ pandoc.list(clean.text(responses.org.foreign$Q2.4_5_TEXT))
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
 p <- plot.single.question(responses.org.foreign$Q2.5)
-ggsave(p, filename="figures/fig2_5.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig2_5.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig2_5.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig2_5.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
@@ -261,8 +277,10 @@ cat(sum.table, file="tables/table2_5.md")
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
 p <- plot.single.question(responses.org.foreign$Q2.6)
-ggsave(p, filename="figures/fig2_6.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig2_6.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig2_6.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig2_6.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
@@ -282,12 +300,14 @@ cat(sum.table, file="tables/table2_6.md")
 p <- ggplot(work.countries.plot, aes(map_id=id)) +
   geom_map(aes(fill=freq_ceiling), map=world.ggmap, colour="black", size=0.25) +
   expand_limits(x=world.ggmap$long, y=world.ggmap$lat) +
-  scale_fill_gradient(high="#ff7f00", low="#fff7bc", na.value="grey",
+  scale_fill_gradient(high="#F09905", low="#EFDBBF", na.value="#CCCCCC",
                       guide="colorbar", name="# of NGOs") +
   coord_map(xlim=c(-180,180), ylim=c(-60, 90)) +
   theme_blank_map + theme(legend.key.width=unit(0.55, "line"))
-ggsave(p, filename="figures/fig3_2.pdf", width=7.5, height=4, units="in")
-ggsave(p, filename="figures/fig3_2.png", width=7.5, height=4, units="in")
+ggsave(p + theme_map_clean, filename="figures/fig3_2.pdf", 
+       width=5.5, height=4, units="in", device=cairo_pdf)
+ggsave(p + theme_map_clean, filename="figures/fig3_2.png", 
+       width=5.5, height=4, units="in")
 p
 ```
 
@@ -313,8 +333,10 @@ pandoc.list(countries.left$country)
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
 p <- plot.single.question(responses.countries$Q3.3)
-ggsave(p, filename="figures/fig3_3.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig3_3.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig3_3.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig3_3.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
@@ -329,8 +351,10 @@ cat(sum.table, file="tables/table3_3.md")
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
 p <- plot.single.question(responses.countries$Q3.4)
-ggsave(p, filename="figures/fig3_4.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig3_4.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig3_4.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig3_4.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
@@ -349,8 +373,10 @@ labels <- c("The national government", "NGOs and civil society",
             "Embassies or foreign governments", "International organizations", "Other")
 
 p <- plot.multiple.answers(responses.countries, cols, labels)
-ggsave(p, filename="figures/fig3_5.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig3_5.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig3_5.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig3_5.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
@@ -386,8 +412,10 @@ pandoc.list(clean.text(responses.countries$Q3.7))
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
 p <- plot.single.question(responses.countries$Q3.8)
-ggsave(p, filename="figures/fig3_8.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig3_8.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig3_8.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig3_8.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
@@ -410,8 +438,10 @@ labels <- c("Asking for legislation", "Convening conferences or workshops",
             "The US has not been involved in trafficking issues")
 
 p <- plot.multiple.answers(responses.countries, cols, labels)
-ggsave(p, filename="figures/fig3_9.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig3_9.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig3_9.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig3_9.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
@@ -488,8 +518,10 @@ labels <- c("Direct contact (meetings)", "Direct cooperation",
             "We have not had any contact or funding from the US", "Don't know")
 
 p <- plot.multiple.answers(responses.countries, cols, labels)
-ggsave(p, filename="figures/fig3_18.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig3_18.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig3_18.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig3_18.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
@@ -511,8 +543,10 @@ pandoc.list(clean.text(responses.countries$Q3.18_4_TEXT))
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
 p <- plot.single.question(responses.countries$Q3.19)
-ggsave(p, filename="figures/fig3_19.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig3_19.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig3_19.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig3_19.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
@@ -527,8 +561,10 @@ cat(sum.table, file="tables/table3_19.md")
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
 p <- plot.single.question(responses.countries$Q3.20)
-ggsave(p, filename="figures/fig3_20.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig3_20.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig3_20.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig3_20.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
@@ -546,8 +582,10 @@ cols <- c("Q3.21_1", "Q3.21_2", "Q3.21_3", "Q3.21_4")
 labels <- c("Government of X", "Another government", "Other NGOs", "Other")
 
 p <- plot.multiple.answers(responses.countries, cols, labels)
-ggsave(p, filename="figures/fig3_21.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig3_21.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig3_21.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig3_21.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
@@ -569,8 +607,10 @@ pandoc.list(clean.text(responses.countries$Q3.21_4_TEXT))
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
 p <- plot.single.question(responses.countries$Q3.22)
-ggsave(p, filename="figures/fig3_22.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig3_22.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig3_22.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig3_22.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
@@ -585,8 +625,10 @@ cat(sum.table, file="tables/table3_22.md")
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
 p <- plot.single.question(responses.countries$Q3.23)
-ggsave(p, filename="figures/fig3_23.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig3_23.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig3_23.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig3_23.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
@@ -608,8 +650,10 @@ pandoc.list(clean.text(responses.countries$Q3.24))
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
 p <- plot.single.question(responses.countries$Q3.25)
-ggsave(p, filename="figures/fig3_25.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig3_25.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig3_25.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig3_25.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
@@ -624,8 +668,10 @@ cat(sum.table, file="tables/table3_25.md")
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
 p <- plot.single.question(responses.countries$Q3.26)
-ggsave(p, filename="figures/fig3_26.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig3_26.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig3_26.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig3_26.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
@@ -640,8 +686,10 @@ cat(sum.table, file="tables/table3_26.md")
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
 p <- plot.single.question(responses.countries$Q3.27)
-ggsave(p, filename="figures/fig3_27.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig3_27.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig3_27.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig3_27.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
@@ -656,8 +704,10 @@ cat(sum.table, file="tables/table3_27.md")
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
 p <- plot.single.question(responses.countries$Q3.28)
-ggsave(p, filename="figures/fig3_28.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig3_28.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig3_28.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig3_28.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
@@ -672,8 +722,10 @@ cat(sum.table, file="tables/table3_28.md")
 
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
 p <- plot.single.question(responses.countries$Q3.29)
-ggsave(p, filename="figures/fig3_29.pdf", width=6.5, height=3, units="in")
-ggsave(p, filename="figures/fig3_29.png", width=6.5, height=3, units="in")
+ggsave(p + theme_clean(), filename="figures/fig3_29.pdf", 
+       width=5.5, height=2, units="in", device=cairo_pdf)
+ggsave(p + theme_clean(), filename="figures/fig3_29.png", 
+       width=5.5, height=2, units="in")
 p
 ```
 
