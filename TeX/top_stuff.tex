@@ -6,9 +6,14 @@
 % Adapted from http://tex.stackexchange.com/a/129032/11851
 \usepackage{fontspec}
 \usepackage{polyglossia}
+\usepackage{bidi}
 \usepackage[Latin, Khmer, Thai, Arabic]{ucharclasses}
 
+\newfontfamily{\Khmer}{Khmer}  % From http://www.google.com/fonts/specimen/Khmer
+\newfontfamily{\Thai}{Thonburi}
+\newfontfamily{\Arabic}{Al Tarikh}
+
 \setDefaultTransitions{\normalfont}{}
-\setTransitionsFor{Khmer}{\fontspec{Khmer}}{}  % From http://www.google.com/fonts/specimen/Khmer
-\setTransitionsFor{Thai}{\fontspec{Thonburi}}{}
-\setTransitionsFor{Arabic}{\fontspec{Al Tarikh}}{}
+\setTransitionsFor{Khmer}{\Khmer}{}  
+\setTransitionsFor{Thai}{\Thai}{}
+\setTransitionsFor{Arabic}{\Arabic}{}
