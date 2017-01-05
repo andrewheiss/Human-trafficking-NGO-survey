@@ -1,14 +1,14 @@
 ---
-hide.anonymous: FALSE
+hide.anonymous: TRUE
 title: |
-  | Human Trafficking Survey Results Report
+  | Human Trafficking Survey Results Raw Report
   | • • •
-  | Anonymous organizations unredacted
+  | Anonymous organizations redacted
   | US-only organizations removed
   | • • •
-author: "Judith Kelley"
-date: "`r format(Sys.time(), '%B %e, %Y')`"
-mainfont: DejaVu Sans
+author: "Judith Kelley and Andrew Heiss"
+date: "2015-03-30 (last run `r format(Sys.time(), '%B %e, %Y')`)"
+mainfont: Source Sans Pro
 fontsize: 10pt
 output:
   pdf_document:
@@ -23,7 +23,7 @@ output:
 # Set the working directory one level back
 library(knitr)
 opts_knit$set(root.dir = normalizePath('../'))
-opts_chunk$set(cache=FALSE)
+opts_chunk$set(echo=TRUE, cache=FALSE, dev="cairo_pdf")
 
 library(pander)
 panderOptions('table.split.table', Inf)
@@ -36,7 +36,6 @@ source("../R/clean_data.R", chdir=TRUE)
 source("../R/summary_functions.R", chdir=TRUE)
 
 # MAYBE: Find a font that covers Khmer too (not even Arial Unicode MS does, apparently)
-# TODO: Embed fonts in plots
 # MAYBE: Multicolumnn table instead of list?
 # TODO: Response rate
 # TODO: Ignore organizations marked for removal
@@ -62,11 +61,17 @@ source("../R/summary_functions.R", chdir=TRUE)
 ```{r, warning=FALSE, echo=FALSE, fig.width=6.5, fig.height=3}
 email.blasts <- ymd(c('2014-07-03', '2014-07-07', '2014-07-17', '2014-07-23', '2014-08-04', '2014-08-14', '2014-08-19', '2014-09-15', '2014-11-06', '2014-11-17', '2014-12-01'))  # '2014-10-16'
 
-p <- ggplot(responses.org.foreign, aes(end.time, completed.total))
-p + geom_line(colour=bar.color.single, size=2) + 
-  geom_vline(xintercept=as.numeric(email.blasts), 
+plot.data <- responses.org.foreign %>%
+  select(end.time, completed.total) %>%
+  mutate(end.day = ymd(paste(year(end.time), month(end.time), 
+                             day(end.time), sep="-")))
+
+p <- ggplot(plot.data, aes(end.day, completed.total))
+p + geom_line(colour=bar.color.single, size=1) + 
+  geom_vline(xintercept=as.numeric(email.blasts),
              colour="#ff7f00", linetype="dotted", size=0.5) +
   labs(x=NULL, y="Cummulative number of non-US responses\n") + 
+  scale_x_date() +
   theme_line
 ```
 

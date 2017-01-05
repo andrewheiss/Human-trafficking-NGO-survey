@@ -93,14 +93,6 @@ separate.answers.summary <- function(df, cols, labels, total=FALSE) {
 # Plot functions
 #-----------------
 # Custom themes
-theme_bar <- theme_bw(9) + 
-  theme(panel.grid.minor.x=element_blank(),
-        panel.grid.major.x=element_blank())
-
-theme_bar_flipped <- theme_bw(9) + 
-  theme(panel.grid.minor.y=element_blank(),
-        panel.grid.major.y=element_blank())
-
 theme_clean <- function(base_size=9, base_family="Source Sans Pro Light") {
   ret <- theme_bw(base_size, base_family) + 
     theme(panel.background = element_rect(fill="#ffffff", colour=NA),
@@ -115,7 +107,7 @@ theme_clean <- function(base_size=9, base_family="Source Sans Pro Light") {
           axis.title=element_text(size=rel(0.8), family="Source Sans Pro Semibold"),
           strip.text=element_text(size=rel(0.9), family="Source Sans Pro Semibold"),
           strip.background=element_rect(fill="#ffffff", colour=NA),
-          panel.margin=unit(1, "lines"), legend.key.size=unit(.7, "line"),
+          panel.spacing=unit(1, "lines"), legend.key.size=unit(.7, "line"),
           legend.key=element_blank())
   
   ret
@@ -124,9 +116,17 @@ theme_clean <- function(base_size=9, base_family="Source Sans Pro Light") {
 theme_map_clean <- theme(legend.title=element_text(family="Source Sans Pro Semibold"),
                          legend.text=element_text(family="Source Sans Pro Light"))
 
+theme_bar <- theme_clean(9) + 
+  theme(panel.grid.minor.x=element_blank(),
+        panel.grid.major.x=element_blank())
+
+theme_bar_flipped <- theme_clean(9) + 
+  theme(panel.grid.minor.y=element_blank(),
+        panel.grid.major.y=element_blank())
+
 #text=element_text(family="Clear Sans"))
 
-theme_line <- theme_bw(9) + 
+theme_line <- theme_clean(9) + 
   theme(panel.grid.minor.x = element_blank(),
         axis.ticks = element_blank())
 
@@ -138,8 +138,8 @@ theme_blank_map <- theme(panel.background = element_rect(fill="white"),
                          axis.text.y=element_blank(),
                          axis.ticks=element_blank(),
                          axis.title.x=element_blank(),
-                         axis.title.y=element_blank())#,
-                         #text=element_text(size=9, family="Clear Sans"))
+                         axis.title.y=element_blank(),
+                         text=element_text(size=9, family="Source Sans Pro"))
 
 # Plot the summary of a factor
 plot.single.question <- function(x, flipped=TRUE) {
